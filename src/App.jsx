@@ -16,10 +16,12 @@ const App = () => {
     <>
       {/* // JUst forget About this code here // Initialize the particle engine */}
       {/* <ParticleEngineInitializer onInit={handleParticlesInit} />
+
+
        Render the particle background when initialization is done
       {isInitialized && <ParticlesBackground />} */}
-
       <Mainlayout>
+        
       </Mainlayout>
       <Outlet />
     </>
