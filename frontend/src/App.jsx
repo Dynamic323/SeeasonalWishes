@@ -4,6 +4,7 @@ import ParticlesBackground from "./components/ParticlesBg/ParticlesBackground";
 import Mainlayout from "./layouts/Mainlayout";
 import HomePage from "./pages/HomePage";
 import { Outlet } from "react-router-dom";
+import { Getseason } from "../regurate";
 
 const App = () => {
   const [isInitialized, setIsInitialized] = useState(false);
