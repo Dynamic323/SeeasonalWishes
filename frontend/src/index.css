@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  /* Autumn Season Color Scheme (Generic) */
+  --primary-color: #f87171; /* Warm red for autumn leaves */
+  --secondary-color: #fbbf24; /* Warm amber/orange tone */
+  --background-color: #fbcfe8; /* Soft, warm background tone */
+  --accent-color: #f59e0b; /* Rich gold for accents and highlights */
+  --text-color: #1f2937; /* Dark, almost charcoal color for text */
+  --button-color: #dc2626; /* Bright red for buttons and call-to-action elements */
+
+  /* Autumn Gradient for Backgrounds */
+  --gradient-background: linear-gradient(to bottom left, #ffb380, #d5bfff); /* Red to Amber gradient */
+
+  /* Optional for more contrast in text readability */
+  --light-text-color: #ffffff; /* White text on dark backgrounds */
+  --dark-text-color: #4b5563; /* Softer, dark gray text on light backgrounds */
+}
+
+:root {
+  /* Spring Season Color Scheme */
+  --spring-primary: #34d399; /* Fresh green for spring growth */
+  --spring-secondary: #10b981; /* Deep emerald for accents */
+  --spring-background: #d1fae5; /* Soft, pastel green background */
+  --spring-accent: #6ee7b7; /* Light mint for highlights */
+  --spring-text: #065f46; /* Dark green for text */
+  --spring-button: #059669; /* Bright green for buttons */
+
+  /* Spring Gradient for Backgrounds */
+  --spring-gradient: linear-gradient(
+    to right,
+    #34d399,
+    #10b981
+  ); /* Green gradient */
+
+  /* Optional for more contrast in text readability */
+  --spring-light-text: #ffffff; /* White text on dark backgrounds */
+  --spring-dark-text: #1f2937; /* Dark charcoal text on light backgrounds */
+}
+
+:root {
+  /* Summer Season Color Scheme */
+  --summer-primary: #fbbf24; /* Sunny yellow for summer */
+  --summer-secondary: #fb923c; /* Warm orange for accents */
+  --summer-background: #fef3c7; /* Light, warm yellow background */
+  --summer-accent: #f59e0b; /* Rich golden-yellow for highlights */
+  --summer-text: #78350f; /* Deep brown for text */
+  --summer-button: #f97316; /* Vibrant orange for buttons */
+
+  /* Summer Gradient for Backgrounds */
+  --summer-gradient: linear-gradient(
+    to right,
+    #fbbf24,
+    #fb923c
+  ); /* Yellow to Orange gradient */
+
+  /* Optional for more contrast in text readability */
+  --summer-light-text: #ffffff; /* White text on dark backgrounds */
+  --summer-dark-text: #4b5563; /* Dark gray text on light backgrounds */
+}
+
+:root {
+  /* Autumn Season Color Scheme */
+  --autumn-primary: #f87171; /* Warm red for autumn leaves */
+  --autumn-secondary: #fbbf24; /* Warm amber/orange tone */
+  --autumn-background: #fbcfe8; /* Soft, warm background tone */
+  --autumn-accent: #f59e0b; /* Rich gold for accents and highlights */
+  --autumn-text: #1f2937; /* Dark, almost charcoal color for text */
+  --autumn-button: #dc2626; /* Bright red for buttons and call-to-action elements */
+
+  /* Autumn Gradient for Backgrounds */
+  --autumn-gradient: linear-gradient(
+    to right,
+    #f87171,
+    #fbbf24
+  ); /* Red to Amber gradient */
+
+  /* Optional for more contrast in text readability */
+  --autumn-light-text: #ffffff; /* White text on dark backgrounds */
+  --autumn-dark-text: #4b5563; /* Softer, dark gray text on light backgrounds */
+  
+}
+
+:root {
+  /* Winter Season Color Scheme */
+  --winter-primary: #60a5fa; /* Icy blue for winter chill */
+  --winter-secondary: #4c51bf; /* Deep indigo for accents */
+  --winter-background: #e0f2fe; /* Light, cool blue background */
+  --winter-accent: #3b82f6; /* Bright blue for highlights */
+  --winter-text: #1e3a8a; /* Dark indigo for text */
+  --winter-button: #2563eb; /* Strong blue for buttons */
+
+  /* Winter Gradient for Backgrounds */
+  --winter-gradient: linear-gradient(
+    to right,
+    #60a5fa,
+    #4c51bf
+  ); /* Blue to Indigo gradient */
+
+  /* Optional for more contrast in text readability */
+  --winter-light-text: #ffffff; /* White text on dark backgrounds */
+  --winter-dark-text: #1f2937; /* Dark charcoal text on light backgrounds */
+}
+
+::placeholder {
+  color: black;
+}
+.main {
+  background: url(https://i.ibb.co/1sQXJ4z/page-bg.png);
+  height: 100vh;
+}
+
+
+.spfont {
+  font-family: "Dancing Script", cursive;
+  font-optical-sizing: auto;
+  /* font-weight: <weight>; */
+  font-style: normal;
+}
