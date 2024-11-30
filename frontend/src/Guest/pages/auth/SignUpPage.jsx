@@ -44,7 +44,7 @@ function SignUpPage() {
 
   return (
     <div className=" ">
-      {/* <h1 className="text-center text-5xl font-bold text-skin-light-text relative top-[50px]">Create An account</h1> */}
+      <h1 className="text-center text-5xl font-bold text-skin-light-text relative top-[50px]">.</h1>
       <div className="m-auto " style={containerStyle}>
         <h1 className=" text-xl font-semibold">
           create an Account on <br />

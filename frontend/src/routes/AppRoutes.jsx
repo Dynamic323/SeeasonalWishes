@@ -1,10 +1,37 @@
 import { createBrowserRouter } from "react-router-dom";
-import HomePage from "../pages/HomePage";
 import App from "../App";
+import Feature from "../Guest/pages/Feature";
+import HomePage from "../Guest/pages/HomePage";
+import ExploreTemplates from "../Guest/pages/ExploreTemplates";
+import ContactPage from "../Guest/pages/ContactPage";
+import SignUpPage from "../Guest/pages/auth/SignUpPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+      },
+      {
+        path: "/Feature",
+        element: <Feature />,
+      },
+      {
+        path: "/Preview",
+        element: <ExploreTemplates />,
+      },
+      {
+        path: "/contact",
+        element: <ContactPage />,
+      },
+      {
+        path:"/sign-in",
+        element: <SignUpPage/>
+      }
+    ],
   },
 ]);
