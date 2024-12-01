@@ -45,11 +45,6 @@ export const router = createBrowserRouter([
     ],
   },
 
-  // {
-  //   path: "/user",
-  //   element: <LoginPage />,
-  // },
-
   {
     path: "/user/dashboard",
     element: (
@@ -58,19 +53,23 @@ export const router = createBrowserRouter([
       </ProtectedRoute>
     ),
 
-    children: [
-      {
-        path: "",
-        element: (
-          <ProtectedRoute>
-            <AdminLayout />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/user",
-        element: <ProtectedRoute>{/* <ProductsPage />  */}</ProtectedRoute>,
-      },
-    ],
+    // children: [
+    //   {
+    //     path: "",
+    //     element: (
+    //       <ProtectedRoute>
+    //         <AdminLayout />
+    //       </ProtectedRoute>
+    //     ),
+    //   },
+    //   // {
+    //   //   path:'user/create',
+    //   //   element:<NewGreeting />
+    //   // },
+    //   // {
+    //   //   path:'user/template',
+    //   //   element:<Greeting />
+    //   // }
+    // ],
   },
 ]);
