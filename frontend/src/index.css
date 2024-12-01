@@ -5,6 +5,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
+
+  /* --primary-color: #60a5fa; 
+  --secondary-color: #4c51bf; 
+  --background-color: #e0f2fe;
+  --accent-color: #3b82f6; 
+  --text-color: #1e3a8a; 
+  --button-color: #2563eb; 
+
+  --gradient-background: linear-gradient(
+    to right,
+    #60a5fa,
+    #4c51bf
+  );
+
+  --light-text-color: #ffffff; 
+  --dark-text-color: #1f2937;  */
   /* Autumn Season Color Scheme (Generic) */
   --primary-color: #f87171; /* Warm red for autumn leaves */
   --secondary-color: #fbbf24; /* Warm amber/orange tone */
@@ -120,4 +136,29 @@
   font-optical-sizing: auto;
   /* font-weight: <weight>; */
   font-style: normal;
+}
+
+
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+.animate-fall {
+  animation: fall linear infinite;
+}
+
+.shadow-text {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Add this to your global CSS or Tailwind config */
+@layer utilities {
+  .backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+  }
 }

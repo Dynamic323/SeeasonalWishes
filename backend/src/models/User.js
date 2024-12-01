@@ -1,4 +1,4 @@
-const mongose = require("mongoose");
+const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
 // Define the User Schema
@@ -20,4 +20,4 @@ userSchema.pre("save", async function (next) {
 });
 
 // Export the User model
-module.exports = mongose.model("User", userSchema);
+module.exports = mongoose.model("User", userSchema);

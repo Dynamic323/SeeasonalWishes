@@ -1,16 +1,22 @@
 import React from "react";
 import HomePage from "../pages/HomePage";
 import SignUpPage from "../pages/auth/SignUpPage";
+import { Link } from "react-router-dom";
+// import Link from "next/link"
+
+
+
 
 function Mainlayout() {
   return (
     <>
-      <div className="main ">
+       <HomePage /> 
+      {/* <div className="main ">
         <nav>Navbar Content</nav>
-        {/* <HomePage /> */}
         <SignUpPage />
         <footer> Footer</footer>
-      </div>
+      </div> */}
+
     </>
   );
 }

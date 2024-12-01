@@ -1,10 +1,9 @@
 import React, { Children, useState } from "react";
 import ParticleEngineInitializer from "./components/ParticlesBg/ParticleEngineInitializer";
 import ParticlesBackground from "./components/ParticlesBg/ParticlesBackground";
-import Mainlayout from "./layouts/Mainlayout";
-import HomePage from "./pages/HomePage";
 import { Outlet } from "react-router-dom";
 import { Getseason } from "../regurate";
+import GuestLayout from "./Guest/GuestLayout";
 
 const App = () => {
   const [isInitialized, setIsInitialized] = useState(false);
@@ -15,16 +14,11 @@ const App = () => {
 
   return (
     <>
-      {/* // JUst forget About this code here // Initialize the particle engine */}
-      {/* <ParticleEngineInitializer onInit={handleParticlesInit} />
+      <GuestLayout>
 
-
-       Render the particle background when initialization is done
-      {isInitialized && <ParticlesBackground />} */}
-      <Mainlayout>
         
-      </Mainlayout>
-      <Outlet />
+        <Outlet />
+      </GuestLayout>
     </>
   );
 };
