@@ -6,6 +6,11 @@ import ExploreTemplates from "../Guest/pages/ExploreTemplates";
 import ContactPage from "../Guest/pages/ContactPage";
 import SignUpPage from "../Guest/pages/auth/SignUpPage";
 import LoginPage from "../Guest/pages/auth/LoginPage";
+import AdminLayout from "../Admin/AdminLayout";
+import AdminLogin from "../Admin/Login";
+import ProtectedRoute from "./ProtectedRoute";
+import Index from "../Admin";
+import UserLayout from "../User/UserLayout";
 
 export const router = createBrowserRouter([
   {
@@ -38,5 +43,33 @@ export const router = createBrowserRouter([
         element: <LoginPage />,
       },
     ],
+  },
+
+  {
+    path: "/user/dashboard",
+    element: (
+      <ProtectedRoute>
+        <UserLayout />
+      </ProtectedRoute>
+    ),
+
+    // children: [
+    //   {
+    //     path: "",
+    //     element: (
+    //       <ProtectedRoute>
+    //         <AdminLayout />
+    //       </ProtectedRoute>
+    //     ),
+    //   },
+    //   // {
+    //   //   path:'user/create',
+    //   //   element:<NewGreeting />
+    //   // },
+    //   // {
+    //   //   path:'user/template',
+    //   //   element:<Greeting />
+    //   // }
+    // ],
   },
 ]);

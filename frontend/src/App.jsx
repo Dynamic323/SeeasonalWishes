@@ -15,8 +15,6 @@ const App = () => {
   return (
     <>
       <GuestLayout>
-
-        
         <Outlet />
       </GuestLayout>
     </>
