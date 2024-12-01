@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 const mongoose = require("mongoose"); // Corrected 'mongose' to 'mongoose'
 const bcrypt = require("bcryptjs");
+=======
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+>>>>>>> 35be0f398bf06e195df630ddd16fb88e439aa017
 
 // Define the User Schema
 const userSchema = new mongoose.Schema(
@@ -21,4 +26,8 @@ userSchema.pre("save", async function (next) {
 });
 
 // Export the User model
+<<<<<<< HEAD
 module.exports = mongoose.model("User", userSchema); // Corrected 'mongose' to 'mongoose'
+=======
+module.exports = mongoose.model("User", userSchema);
+>>>>>>> 35be0f398bf06e195df630ddd16fb88e439aa017
