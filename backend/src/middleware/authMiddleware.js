@@ -1,17 +1,24 @@
-// src/middleware/authMiddleware.js
+// middleware/authMiddleware.js
+
 const jwt = require('jsonwebtoken');
 
-const authMiddleware = (req, res, next) => {
-  const token = req.headers['authorization'];
-  if (!token) return res.status(401).json({ message: 'No token provided' });
+// Middleware to verify token
+const verifyToken = (req, res, next) => {
+  const token = req.header('x-auth-token'); // Get the token from the header
+  if (!token) {
+    return res.status(401).json({ message: 'No token provided' });
+  }
 
   try {
+    // Verify the token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.userId = decoded.id;
-    next();
+    req.user = decoded; // Attach the user info to the request
+    next(); // Move to the next middleware or route handler
   } catch (error) {
-    res.status(401).json({ message: 'Invalid or expired token' });
+    res.status(400).json({ message: 'Invalid token' });
   }
 };
 
-module.exports = authMiddleware;
+module.exports = {
+  verifyToken,
+};
