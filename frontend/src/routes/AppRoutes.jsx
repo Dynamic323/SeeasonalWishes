@@ -5,6 +5,7 @@ import HomePage from "../Guest/pages/HomePage";
 import ExploreTemplates from "../Guest/pages/ExploreTemplates";
 import ContactPage from "../Guest/pages/ContactPage";
 import SignUpPage from "../Guest/pages/auth/SignUpPage";
+import LoginPage from "../Guest/pages/auth/LoginPage";
 
 export const router = createBrowserRouter([
   {
@@ -29,9 +30,13 @@ export const router = createBrowserRouter([
         element: <ContactPage />,
       },
       {
-        path:"/sign-in",
-        element: <SignUpPage/>
-      }
+        path: "/sign-in",
+        element: <SignUpPage />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
     ],
   },
 ]);

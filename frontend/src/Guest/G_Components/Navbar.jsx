@@ -11,8 +11,8 @@ function Navbar() {
             <div className="flex-shrink-0">
               <a href="/">
                 <span className="text-2xl font-bold text-skin-primary">
-                  FestiveWishes
-                </span>
+                  Seasonal Wishes
+                </span>                 
               </a>
             </div>
             <div className="hidden md:block">

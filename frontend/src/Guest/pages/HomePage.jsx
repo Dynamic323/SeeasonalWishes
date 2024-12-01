@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import Navbar from "../G_Components/Navbar";
+import TestimonialsSection from "../G_Components/TestimonialsSection";
+import FAQ from "../G_Components/FAQ";
 
 function HomePage() {
   const explore = [
@@ -150,6 +152,9 @@ function HomePage() {
           </div>
         </div>
       </section>
+
+      <TestimonialsSection />
+      <FAQ/>
     </div>
   );
 }

@@ -45,13 +45,14 @@ const ContactPage = () => {
       </div> */}
 
       <div className="container pt-14 mx-auto px-4 py-12 relative z-10">
-        <h1 className="text-4xl sm:text-5xl md:text-5xl font-bold text-skin-text text-center my-6 ">
+        <h1 className="text-4xl sm:text-5xl md:text-xl font-bold text-skin-text text-center my-6 ">
           Contact Us
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-12"> */}
+        <div className="flex justify-center items-center">
           {/* Contact Form */}
-          <div className="bg-white bg-opacity-90 p-8 rounded-lg shadow-xl backdrop-blur-sm">
+          {/* <div className="bg-white bg-opacity-90 p-8 rounded-lg shadow-xl backdrop-blur-sm">
             <h2 className="text-3xl font-semibold mb-6 text-skin-secondary">
               Send us a message
             </h2>
@@ -114,53 +115,86 @@ const ContactPage = () => {
                 Send Message
               </button>
             </form>
-          </div>
+          </div> */}
 
           {/* Contact Information */}
-          <div className="bg-gradient-autumn p-8 rounded-lg shadow-xl text-skin-light-text backdrop-blur-sm">
-            <h2 className="text-3xl font-semibold mb-8 shadow-text">
-              Get in touch
+          <div className="bg-gradient-autumn w-[60%] p-8 rounded-2xl shadow-2xl text-skin-dark-text backdrop-blur-sm transform hover:scale-90 transition-all duration-300">
+            <h2 className="text-3xl font-semibold mb-8 shadow-text border-b-2 border-skin-light-text pb-2">
+              Contact Information
             </h2>
-            <div className="space-y-6">
+            <div className="space-y-8">
               <div className="flex items-start">
-                <i className="fas fa-map-marker-alt mr-4 text-skin-accent text-2xl mt-1"></i>
-                <p className="text-lg">
-                  123 Autumn Lane, Seasonal City, SC 12345
-                </p>
+                <i className="fas fa-map-marker-alt mr-4 text-skin-accent text-3xl mt-1"></i>
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">Our Location</h3>
+                  <p className="text-lg">
+                    123 Autumn Lane, Seasonal City, SC 12345
+                  </p>
+                </div>
               </div>
-              <div className="flex items-center">
-                <i className="fas fa-phone mr-4 text-skin-accent text-2xl"></i>
-                <p className="text-lg">+1 (555) 123-4567</p>
+              <div className="flex items-start">
+                <i className="fas fa-phone-alt mr-4 text-skin-accent text-3xl mt-1"></i>
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">Phone</h3>
+                  <p className="text-lg">+1 (555) 123-4567</p>
+                </div>
               </div>
-              <div className="flex items-center">
-                <i className="fas fa-envelope mr-4 text-skin-accent text-2xl"></i>
-                <p className="text-lg">contact@seasonalwishes.com</p>
+              <div className="flex items-start">
+                <i className="fas fa-envelope mr-4 text-skin-accent text-3xl mt-1"></i>
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">Email</h3>
+                  <p className="text-lg">contact@seasonalwishes.com</p>
+                </div>
               </div>
             </div>
             <div className="mt-12">
-              <h3 className="text-2xl font-semibold mb-4 shadow-text">
+              <h3 className="text-2xl font-semibold mb-4 shadow-text border-b-2 border-skin-light-text pb-2">
                 Business Hours
               </h3>
               <ul className="space-y-2 text-lg">
-                <li>Monday - Friday: 9am - 5pm</li>
-                <li>Saturday: 10am - 2pm</li>
-                <li>Sunday: Closed</li>
+                <li>
+                  <i className="fas fa-clock mr-2 text-skin-accent"></i>Monday -
+                  Friday: 9am - 5pm
+                </li>
+                <li>
+                  <i className="fas fa-clock mr-2 text-skin-accent"></i>
+                  Saturday: 10am - 2pm
+                </li>
+                <li>
+                  <i className="fas fa-clock mr-2 text-skin-accent"></i>Sunday:
+                  Closed
+                </li>
               </ul>
             </div>
           </div>
         </div>
 
-        {/* Decorative Elements */}
-        <div className="mt-16 flex justify-center">
-          <div className="w-20 h-20 bg-skin-accent rounded-full mx-3 animate-bounce shadow-lg"></div>
-          <div
-            className="w-20 h-20 bg-skin-primary rounded-full mx-3 animate-bounce shadow-lg"
-            style={{ animationDelay: "0.2s" }}
-          ></div>
-          <div
-            className="w-20 h-20 bg-skin-secondary rounded-full mx-3 animate-bounce shadow-lg"
-            style={{ animationDelay: "0.4s" }}
-          ></div>
+        {/* Social Media Links */}
+        <div className="mt-16 flex justify-center space-x-6">
+          <a
+            href="#"
+            className="text-skin-accent hover:text-skin-primary transition-colors duration-300"
+          >
+            <i className="fab fa-facebook-f text-4xl"></i>
+          </a>
+          <a
+            href="#"
+            className="text-skin-accent hover:text-skin-primary transition-colors duration-300"
+          >
+            <i className="fab fa-twitter text-4xl"></i>
+          </a>
+          <a
+            href="#"
+            className="text-skin-accent hover:text-skin-primary transition-colors duration-300"
+          >
+            <i className="fab fa-instagram text-4xl"></i>
+          </a>
+          <a
+            href="#"
+            className="text-skin-accent hover:text-skin-primary transition-colors duration-300"
+          >
+            <i className="fab fa-linkedin-in text-4xl"></i>
+          </a>
         </div>
       </div>
     </div>

@@ -118,9 +118,9 @@ function Feature() {
     <div>
       {/* FeatureWelcome banner */}
 
-      <div className="h-fit pt-12 text-white bg-red-800 grid justify-center items-center py-10 sm:py-20 lg:py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center sm:text-left text-4xl sm:text-5xl lg:text-6xl font-bold">
+      <div className="h-fit pt-12  bg-gradient-autumn text-skin-text grid justify-center items-center sm:py-20 lg:py-20">
+        <div className="container mx-auto py-20 px-4 sm:px-6 lg:px-8">
+          <h2 className="text-center text-skin-text sm:text-left text-4xl sm:text-5xl lg:text-6xl font-bold">
             Discover Seasonal Whishes
           </h2>
           <p className="text-center sm:text-left text-lg sm:text-xl lg:text-2xl mt-4">
@@ -131,7 +131,7 @@ function Feature() {
       </div>
 
       <div className=" py-10 text-center">
-        <h2 className="text-4xl sm:text-5xl md:text-6xl  font-bold text-skin-text">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold  text-skin-text ">
           Our Features
         </h2>
       </div>
@@ -149,7 +149,7 @@ function Feature() {
       </div>
 
       <div className="flex justify-center py-10 text-skin-text ">
-        <p className="text-4xl sm:text-5xl lg:text-6xl text-richburgundy font-semibold">
+        <p className="text-4xl sm:text-4xl lg:text-5xl  font-semibold">
           How It Works
         </p>
       </div>
