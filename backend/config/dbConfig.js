@@ -1,11 +1,17 @@
-const mongoose = require('mongoose');
+// For mocking MongoDB connections
+const mockgoose = require('mockgoose').mockgoose;
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log('MongoDB connected');
+    mockgoose.prepareStorage().then(() => {
+      mongoose.connect('mongodb://localhost:27017/test', {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      });
+      console.log('MongoDB connected (mocked)');
+    });
   } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
+    console.error('Error connecting to MongoDB:', error.message);
     process.exit(1); // Exit process with failure
   }
 };

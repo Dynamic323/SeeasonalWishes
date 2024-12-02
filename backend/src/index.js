@@ -2,60 +2,75 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cron = require('node-cron');
 const dotenv = require('dotenv');
-const connectDB = require('../config/dbConfig'); // MongoDB connection
-const authRoutes = require('./routes/authRoutes'); // Importing auth routes
-const greetingsRoutes = require('./routes/greetingsRoutes'); // Importing greetings routes
-const Greeting = require('./models/Greeting'); // Import Greeting model
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
-dotenv.config({ path: 'season.env' }); // Load environment variables
+// Import custom modules
+const connectDB = require('../config/dbConfig.js');
+
+const authRoutes = require('./routes/authRoutes'); // Auth routes
+const greetingsRoutes = require('./routes/greetingsRoutes'); // Greetings routes
+const Greeting = require('./models/Greeting'); // Greeting model
+
+// Load environment variables
+dotenv.config({ path: './season.env' });
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware to parse JSON requests
-app.use(express.json());
+
+app.use(cors());
+
+// Middleware to parse incoming requests
+app.use(bodyParser.json()); // Parses JSON requests
+app.use(bodyParser.urlencoded({ extended: true })); // Parses URL-encoded requests
 
 // Routes
-app.use('/api/auth', authRoutes);  // Auth routes: /api/auth/register and /api/auth/login
-app.use('/api/greetings', greetingsRoutes);  // Greetings routes: /api/greetings
+app.use('/api/auth', authRoutes); // Handles authentication: register, login
+app.use('/api/greetings', greetingsRoutes); // Handles greetings: create, read, etc.
 
 // Connect to MongoDB
-connectDB(); // Assuming connectDB is in config/dbConfig.js
+connectDB(); // Function in `config/dbConfig.js`
 
-// Schedule the cron job to expire greetings
-cron.schedule('0 * * * *', async () => { // Runs every hour (0th minute)
+// Cron job to mark greetings as expired
+cron.schedule('0 * * * *', async () => {
   try {
     const now = new Date();
-    console.log(`Current time: ${now}`);
+    console.log(`Running cron job. Current time: ${now}`);
 
-    // Find pending greetings that need to be expired
-    const pendingGreetings = await Greeting.find({ expiresAt: { $lt: now }, status: 'pending' });
+    // Find greetings that have expired and are still marked as pending
+    const pendingGreetings = await Greeting.find({
+      expiresAt: { $lt: now },
+      status: 'pending',
+    });
+
     console.log('Pending greetings to expire:', pendingGreetings);
 
-    // Mark those greetings as expired
+    // Update greetings to "expired"
     const result = await Greeting.updateMany(
       { expiresAt: { $lt: now }, status: 'pending' },
       { $set: { status: 'expired' } }
     );
 
-    console.log(`Matching documents: ${result.matchedCount}`);
-    console.log(`Modified documents: ${result.modifiedCount}`);
-    console.log(`${result.nModified} messages marked as expired.`);
+    console.log(`Matched: ${result.matchedCount}, Modified: ${result.modifiedCount}`);
   } catch (error) {
-    console.error('Error updating expired messages:', error);
+    console.error('Error while expiring greetings:', error);
   }
 });
 
-// Connect to MongoDB and start the server
-mongoose.connect(process.env.MONGO_URI)  // Assuming you have MONGO_URI in your .env file
+// Start the server
+mongoose
+//   .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }) // Ensure proper options
+mongoose.connect(process.env.MONGO_URI)
+
   .then(() => {
-    console.log('MongoDB connected');
+    console.log('MongoDB connected successfully');
     app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
+      console.log(`Server running on http://localhost:${PORT}`);
     });
   })
-  .catch(err => {
-    console.log('MongoDB connection error:', err);
+  .catch((err) => {
+    console.error('Failed to connect to MongoDB:', err);
   });
 
-module.exports = app;  // Export app for testing or future configurations
+module.exports = app; // Export app for testing
