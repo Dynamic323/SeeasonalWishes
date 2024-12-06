@@ -5,37 +5,42 @@ function Navbar() {
   return (
     <div>
       {" "}
-      <nav className=" fixed z-40 top-0 left-0 bg-white/80 backdrop-blur-sm border-b border-skin-accent/20 w-full">
+      <nav className=" fixed  z-40 top-0 left-0 bg-white/80 backdrop-blur-sm border-b border-skin-accent/20 w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex-shrink-0">
               <a href="/">
                 <span className="text-2xl font-bold text-skin-primary">
                   Seasonal Wishes
-                </span>                 
+                </span>
               </a>
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
                 {[
                   {
+                    id: 0,
                     href: "/",
                     text: "Home",
                   },
                   {
+                    id: 1,
                     href: "/Feature",
                     text: "Feature",
                   },
                   {
+                    id: 2,
                     href: "/Preview",
                     text: "Preview",
                   },
                   {
+                    id: 3,
                     href: "/contact",
                     text: "contact",
                   },
                 ].map((item) => (
                   <Link
+                    key={item.id}
                     to={`${item.href}`}
                     className="text-skin-text hover:text-skin-primary px-3 py-2 rounded-md text-sm font-medium"
                   >

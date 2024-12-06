@@ -47,7 +47,7 @@ function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen pt-14 bg-skin-background">
+    <div className="min-h-screen  bg-skin-background">
       {/* Navigation */}
       {/* <Navbar /> */}
 
@@ -74,7 +74,7 @@ function HomePage() {
       </div> */}
 
       {/* Hero Section with SVG pattern */}
-      <section className=" overflow-hidden py-20 sm:py-32 bg-gradient-autumn">
+      <section className=" overflow-hidden  sm:py-32 bg-gradient-autumn">
         {/* <div className="absolute inset-0 overflow-hidden">
           <AutumnLeaf
             style={{ top: "10%", left: "5%", transform: "rotate(-15deg)" }}
@@ -95,7 +95,7 @@ function HomePage() {
         </div> */}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-skin-text text-center mb-6">
-            Welcome to SeasonalWishes
+            Welcome to SeasonalWishes NARUTO
           </h1>
           <p className="text-xl md:text-2xl text-skin-dark-text text-center mb-8 max-w-3xl">
             Create, schedule, and send heartfelt greetings that surprise and
@@ -154,7 +154,7 @@ function HomePage() {
       </section>
 
       <TestimonialsSection />
-      <FAQ/>
+      <FAQ />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 const FAQItem = ({ question, answer, isOpen, toggleOpen }) => {
   return (
@@ -8,13 +8,15 @@ const FAQItem = ({ question, answer, isOpen, toggleOpen }) => {
         onClick={toggleOpen}
       >
         <span className="text-lg font-medium text-skin-text">{question}</span>
-        <i className={`fas fa-chevron-down text-skin-accent transition-transform duration-300 ${
-          isOpen ? 'transform rotate-180' : ''
-        }`}></i>
+        <i
+          className={`fas fa-chevron-down text-skin-accent transition-transform duration-300 ${
+            isOpen ? "transform rotate-180" : ""
+          }`}
+        ></i>
       </button>
       <div
         className={`overflow-hidden transition-all duration-300 ${
-          isOpen ? 'max-h-40' : 'max-h-0'
+          isOpen ? "max-h-40" : "max-h-0"
         }`}
       >
         <p className="p-3 text-skin-text">{answer}</p>
@@ -26,9 +28,9 @@ const FAQItem = ({ question, answer, isOpen, toggleOpen }) => {
 const FAQ = () => {
   useEffect(() => {
     // Add Font Awesome CDN
-    const script = document.createElement('script');
-    script.src = 'https://kit.fontawesome.com/your-kit-code.js';
-    script.crossOrigin = 'anonymous';
+    const script = document.createElement("script");
+    script.src = "https://kit.fontawesome.com/your-kit-code.js";
+    script.crossOrigin = "anonymous";
     document.body.appendChild(script);
 
     return () => {
@@ -40,28 +42,33 @@ const FAQ = () => {
     {
       id: 0,
       question: "How far in advance can I schedule a greeting?",
-      answer: "You can schedule greetings up to one year in advance. This allows you to plan for birthdays, anniversaries, and other special occasions well ahead of time."
+      answer:
+        "You can schedule greetings up to one year in advance. This allows you to plan for birthdays, anniversaries, and other special occasions well ahead of time.",
     },
     {
       id: 1,
       question: "Can I use my own images in the greetings?",
-      answer: "Yes, you can upload and use your own images in the greetings. We support various image formats including JPG, PNG, and GIF."
+      answer:
+        "Yes, you can upload and use your own images in the greetings. We support various image formats including JPG, PNG, and GIF.",
     },
     {
       id: 2,
       question: "Is there a limit to how many greetings I can send?",
-      answer: "There's no limit to the number of greetings you can send. However, we have fair usage policies in place for our free tier users. Premium users enjoy unlimited greetings."
+      answer:
+        "There's no limit to the number of greetings you can send. However, we have fair usage policies in place for our free tier users. Premium users enjoy unlimited greetings.",
     },
     {
       id: 3,
       question: "Can I edit a greeting after I've scheduled it?",
-      answer: "Yes, you can edit your greetings at any time before they are sent. Simply go to your scheduled greetings and click the edit button to make changes."
+      answer:
+        "Yes, you can edit your greetings at any time before they are sent. Simply go to your scheduled greetings and click the edit button to make changes.",
     },
     {
       id: 4,
       question: "What happens if the recipient doesn't have email?",
-      answer: "If the recipient doesn't have an email, you can choose to send the greeting via SMS or generate a shareable link that you can send through any messaging platform."
-    }
+      answer:
+        "If the recipient doesn't have an email, you can choose to send the greeting via SMS or generate a shareable link that you can send through any messaging platform.",
+    },
   ];
 
   const [openQuestionId, setOpenQuestionId] = useState(null);
@@ -72,7 +79,7 @@ const FAQ = () => {
 
   return (
     <div className="max-w-3xl mx-auto mt-12 bg-skin-background rounded-lg shadow-lg overflow-hidden">
-      <h2 className="text-3xl font-bold text-center text-skin-light-text py-6 bg-gradient-autumn">
+      <h2 className="text-3xl font-bold text-center  py-6 bg-gradient-autumn">
         Frequently Asked Questions
       </h2>
       <div className="divide-y divide-skin-accent">

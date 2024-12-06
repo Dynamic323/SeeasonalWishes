@@ -9,8 +9,14 @@ import LoginPage from "../Guest/pages/auth/LoginPage";
 import AdminLayout from "../Admin/AdminLayout";
 import AdminLogin from "../Admin/Login";
 import ProtectedRoute from "./ProtectedRoute";
-import Index from "../Admin";
 import UserLayout from "../User/UserLayout";
+import Create from "../User/Pages.jsx/Create";
+import Scheduled from "../User/Pages.jsx/Scheduled";
+import Guestbook from "../User/Pages.jsx/Guestbook";
+import Index from "../User/Pages.jsx/Index";
+import Templates from "../User/Pages.jsx/Templates";
+import Settings from "../User/Pages.jsx/Settings";
+import Use_template from "../User/Pages.jsx/Use_template";
 
 export const router = createBrowserRouter([
   {
@@ -53,23 +59,63 @@ export const router = createBrowserRouter([
       </ProtectedRoute>
     ),
 
-    // children: [
-    //   {
-    //     path: "",
-    //     element: (
-    //       <ProtectedRoute>
-    //         <AdminLayout />
-    //       </ProtectedRoute>
-    //     ),
-    //   },
-    //   // {
-    //   //   path:'user/create',
-    //   //   element:<NewGreeting />
-    //   // },
-    //   // {
-    //   //   path:'user/template',
-    //   //   element:<Greeting />
-    //   // }
-    // ],
+    children: [
+      {
+        path: "",
+        element: (
+          <ProtectedRoute>
+            <Index />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "create",
+        element: (
+          <ProtectedRoute>
+            <Create />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "scheduled",
+        element: (
+          <ProtectedRoute>
+            <Scheduled />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "templates",
+        element: (
+          <ProtectedRoute>
+            <Templates />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "guestbook",
+        element: (
+          <ProtectedRoute>
+            <Guestbook />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "settings",
+        element: (
+          <ProtectedRoute>
+            <Settings />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "template/:id",
+        element: (
+          <ProtectedRoute>
+           <Use_template/>
+          </ProtectedRoute>
+        ),
+      },
+    ],
   },
 ]);
