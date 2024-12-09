@@ -1,3 +1,5 @@
+import typography from "@tailwindcss/typography";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -5,29 +7,26 @@ export default {
     extend: {
       colors: {
         skin: {
-          primary: "var(--primary-color)", // Warm red for autumn leaves
-          secondary: "var(--secondary-color)", // Warm amber/orange tone
-          background: "var(--background-color)", // Soft, warm background tone
-          accent: "var(--accent-color)", // Rich gold for accents and highlights
-          text: "var(--text-color)", // Dark, almost charcoal color for text
-          button: "var(--button-color)", // Bright red for buttons
-          "light-text": "var(--light-text-color)", // White text on dark backgrounds
-          "dark-text": "var(--dark-text-color)", // Softer, dark gray text on light backgrounds
-          "dark-primary": "var(--dark-primary-bg)", // Deep plum for primary backgrounds
-          "dark-secondary": "var(--dark-secondary-bg)", // Earthy green for secondary sections
-          "dark-accent": "var(--dark-accent-bg)", // Muted burgundy for accents
-          "dark-hover": "var(--dark-hover-bg)", // Warm gray-brown for hover effects
-          "dark-border": "var(--dark-border-color)", // Soft border for contrast
+          primary: "var(--primary-color)",
+          secondary: "var(--secondary-color)",
+          background: "var(--background-color)",
+          accent: "var(--accent-color)",
+          text: "var(--text-color)",
+          button: "var(--button-color)",
+          "light-text": "var(--light-text-color)",
+          "dark-text": "var(--dark-text-color)",
+          "dark-primary": "var(--dark-primary-bg)",
+          "dark-secondary": "var(--dark-secondary-bg)",
+          "dark-accent": "var(--dark-accent-bg)",
+          "dark-hover": "var(--dark-hover-bg)",
+          "dark-border": "var(--dark-border-color)",
         },
       },
       backgroundImage: {
-        "gradient-autumn": "var(--gradient-background)", // Custom gradient reference
-        "dark-gradient": "var(--dark-gradient-bg)", // Subtle dark gradient
+        "gradient-autumn": "var(--gradient-background)",
+        "dark-gradient": "var(--dark-gradient-bg)",
       },
     },
-    
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [typography],
 };
-
-
