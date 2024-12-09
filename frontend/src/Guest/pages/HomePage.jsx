@@ -93,7 +93,7 @@ function HomePage() {
             }}
           />
         </div> */}
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+        <div className="relative max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-skin-text text-center mb-6">
             Welcome to SeasonalWishes 
           </h1>

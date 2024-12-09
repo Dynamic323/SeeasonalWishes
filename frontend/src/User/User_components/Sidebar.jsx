@@ -43,7 +43,7 @@ const navItems = [
     label: "Account Settings",
     path: "/user/dashboard/settings",
   },
-  // { icon: Shield, label: "Admin Panel", path: "/user/dashboard/admin" },
+  { icon: Shield, label: "Admin Panel", path: "/user/dashboard/admin" },
 ];
 
 export function Sidebar() {
@@ -60,6 +60,13 @@ export function Sidebar() {
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
+
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-10 lg:hidden"
+          onClick={toggleSidebar}
+        ></div>
+      )}
       <div
         className={`
         fixed inset-y-0 left-0 z-10 w-64 bg-skin-dark-primary text-skin-light-text transform transition-transform duration-200 ease-in-out
