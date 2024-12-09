@@ -28,6 +28,8 @@
   --text-color: #1f2937; /* Dark, almost charcoal color for text */
   --button-color: #dc2626; /* Bright red for buttons and call-to-action elements */
 
+
+/* --gradient-background  to right */
   /* Autumn Gradient for Backgrounds */
   --gradient-background: linear-gradient(
     to bottom left,

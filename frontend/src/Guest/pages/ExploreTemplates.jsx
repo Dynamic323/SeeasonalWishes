@@ -32,7 +32,7 @@ export const WishesData = [
     color: "bg-gradient-to-r from-pink-500 to-purple-500",
   },
   {
-    id: 0,
+    id: 2,
     type: "Wedding",
     category: "Wedding",
     title: "Wedding Bells",
