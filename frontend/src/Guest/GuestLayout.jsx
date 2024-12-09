@@ -4,7 +4,7 @@ import Navbar from "./G_Components/Navbar";
 import Footer from "./G_Components/Footer";
 function GuestLayout({ children }) {
   return (
-    <div className="min-h-screen bg-skin-background">
+    <div className="min-h-screen pt-16 bg-skin-background">
       <Navbar />
       {children}
       <Footer />

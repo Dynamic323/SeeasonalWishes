@@ -5,6 +5,8 @@ import { Outlet } from "react-router-dom";
 import { Getseason } from "../regurate";
 import GuestLayout from "./Guest/GuestLayout";
 
+console.log(Getseason());
+
 const App = () => {
   const [isInitialized, setIsInitialized] = useState(false);
 

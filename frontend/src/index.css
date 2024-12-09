@@ -2,10 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 :root {
-
   /* --primary-color: #60a5fa; 
   --secondary-color: #4c51bf; 
   --background-color: #e0f2fe;
@@ -29,12 +28,31 @@
   --text-color: #1f2937; /* Dark, almost charcoal color for text */
   --button-color: #dc2626; /* Bright red for buttons and call-to-action elements */
 
+
+/* --gradient-background  to right */
   /* Autumn Gradient for Backgrounds */
-  --gradient-background: linear-gradient(to bottom left, #ffb380, #d5bfff); /* Red to Amber gradient */
+  --gradient-background: linear-gradient(
+    to bottom left,
+    #ffb380,
+    #d5bfff
+  ); /* Red to Amber gradient */
 
   /* Optional for more contrast in text readability */
   --light-text-color: #ffffff; /* White text on dark backgrounds */
   --dark-text-color: #4b5563; /* Softer, dark gray text on light backgrounds */
+
+  /* ---D-- */
+
+  --dark-primary-bg: #32223b; /* Deep plum for primary backgrounds */
+  --dark-secondary-bg: #2e3a23; /* Earthy green for secondary sections */
+  --dark-accent-bg: #3b2c2d; /* Muted burgundy for accents */
+  --dark-gradient-bg: linear-gradient(
+    to bottom right,
+    #2e2a33,
+    #3b2f2d
+  ); /* Subtle gradient */
+  --dark-hover-bg: #473c32; /* Warm gray-brown for hover effects */
+  --dark-border-color: #4a4246; /* Soft border for contrast */
 }
 
 :root {
@@ -98,7 +116,6 @@
   /* Optional for more contrast in text readability */
   --autumn-light-text: #ffffff; /* White text on dark backgrounds */
   --autumn-dark-text: #4b5563; /* Softer, dark gray text on light backgrounds */
-  
 }
 
 :root {
@@ -130,14 +147,12 @@
   height: 100vh;
 }
 
-
 .spfont {
   font-family: "Dancing Script", cursive;
   font-optical-sizing: auto;
   /* font-weight: <weight>; */
   font-style: normal;
 }
-
 
 @keyframes fall {
   0% {
