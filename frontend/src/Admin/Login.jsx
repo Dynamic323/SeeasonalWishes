@@ -1,8 +1,22 @@
 import React, { useState } from "react";
 import { User2Icon } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 function AdminLogin() {
     const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login, error, loading } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const success = await login(email, password);
+    if (success) {
+      navigate("/admin/dashboard"); // Redirect to admin dashboard on successful login
+    }
+  };
+
   return (
     <div>
       {" "}
@@ -20,7 +34,7 @@ function AdminLogin() {
               <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
                 Login to your account
               </h1>
-              <form className="space-y-4 md:space-y-6">
+              <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label
                     className="block mb-2 text-sm font-medium text-white"
@@ -80,11 +94,13 @@ function AdminLogin() {
                     Forgot password?
                   </a>
                 </div>
+                {error && <div className="text-red-500">{error}</div>}
                 <button
                   className="w-full text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700"
                   type="submit"
+                  disabled={loading}
                 >
-                  Sign in
+                  {loading ? "Signing in..." : "Sign in"}
                 </button>
               </form>
             </div>

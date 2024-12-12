@@ -15,6 +15,8 @@
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.5.0",
     "framer-motion": "^11.13.1",
+    "jose": "^5.9.6",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.462.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

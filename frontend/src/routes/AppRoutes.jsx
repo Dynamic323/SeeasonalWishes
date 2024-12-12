@@ -17,6 +17,8 @@ import Index from "../User/Pages.jsx/Index";
 import Templates from "../User/Pages.jsx/Templates";
 import Settings from "../User/Pages.jsx/Settings";
 import Use_template from "../User/Pages.jsx/Use_template";
+import AdminDashboard from "../Admin/Dashboard";
+import AdminUsers from "../Admin/Index";
 
 export const router = createBrowserRouter([
   {
@@ -41,7 +43,7 @@ export const router = createBrowserRouter([
         element: <ContactPage />,
       },
       {
-        path: "/sign-in",
+        path: "/signup",
         element: <SignUpPage />,
       },
       {
@@ -115,6 +117,42 @@ export const router = createBrowserRouter([
            <Use_template/>
           </ProtectedRoute>
         ),
+      },
+    ],
+  },
+
+  {
+    path: "/admin",
+    children: [
+      {
+        path: "login",
+        element: <AdminLogin />,
+      },
+      {
+        path: "",
+        element: (
+          <ProtectedRoute requireAdmin={true}>
+              <AdminDashboard />
+          </ProtectedRoute>
+        ),
+        children: [
+          {
+            path: "dashboard",
+            element: (
+              <ProtectedRoute requireAdmin={true}>
+                <AdminDashboard />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "users",
+            element: (
+              <ProtectedRoute requireAdmin={true}>
+                <AdminUsers />
+              </ProtectedRoute>
+            ),
+          },
+        ],
       },
     ],
   },
