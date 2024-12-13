@@ -1,6 +1,6 @@
 // Function to handle updating CSS properties dynamically
 function HandelProperty(prop, value) {
-  let valtoArry = value; // `value` is already an array, no need to split
+  let valtoArry = value; 
   for (let i = 0; i < prop.length; i++) {
     const property = prop[i];
 
