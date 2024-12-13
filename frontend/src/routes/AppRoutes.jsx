@@ -114,7 +114,7 @@ export const router = createBrowserRouter([
         path: "template/:id",
         element: (
           <ProtectedRoute>
-           <Use_template/>
+            <Use_template />
           </ProtectedRoute>
         ),
       },
@@ -132,7 +132,7 @@ export const router = createBrowserRouter([
         path: "",
         element: (
           <ProtectedRoute requireAdmin={true}>
-              <AdminDashboard />
+            <AdminDashboard />
           </ProtectedRoute>
         ),
         children: [
