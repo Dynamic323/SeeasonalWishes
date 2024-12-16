@@ -3,7 +3,7 @@ import ExploreTemplates from "../../Guest/pages/ExploreTemplates";
 
 function Templates() {
   return (
-   <ExploreTemplates/>
+   <ExploreTemplaPtes/>
   );
 }
 

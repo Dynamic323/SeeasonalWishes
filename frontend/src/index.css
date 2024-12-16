@@ -36,6 +36,22 @@
   --winter-text: #1e3a8a;
   --winter-button: #2563eb;
   --winter-gradient: linear-gradient(to right, #60a5fa, #4c51bf);
+
+  --light-text-color: #ffffff; /* White text on dark backgrounds */
+  --dark-text-color: #4b5563; /* Softer, dark gray text on light backgrounds */
+
+  /* ---Dark Theme Updated--- */
+
+  --dark-primary-bg: #1f2937; /* Neutral deep blue-gray for primary backgrounds */
+  --dark-secondary-bg: #2a3645; /* Slightly lighter gray-blue for secondary sections */
+  --dark-accent-bg: #374151; /* Rich slate gray for accents */
+  --dark-gradient-bg: linear-gradient(
+    to bottom right,
+    #1e293b,
+    #2d3748
+  ); /* Smooth gradient with complementary tones */
+  --dark-hover-bg: #475569; /* Subtle slate blue for hover effects */
+  --dark-border-color: #525c6d; /* Muted gray for soft border contrast */
 }
 
 ::placeholder {

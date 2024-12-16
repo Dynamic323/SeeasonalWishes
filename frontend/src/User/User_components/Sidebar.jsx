@@ -74,7 +74,7 @@ export function Sidebar() {
         lg:translate-x-0 lg:static lg:inset-auto lg:flex
       `}
       >
-        <div className="p-4 h-full overflow-y-auto">
+        <div className="p-4 h-full overflow-y-auto text-skin-light-tex">
           <h1 className="text-2xl font-bold mb-8">SeasonalWishes</h1>
           <nav>
             {navItems.map(({ icon: Icon, label, path }) => (
@@ -82,7 +82,7 @@ export function Sidebar() {
                 <button
                   className={`flex items-center gap-3 px-4 py-3 rounded-lg mb-2 transition-colors ${
                     activeItem === label
-                      ? "bg-skin-dark-hover text-skin-accent"
+                      ? "bg-skin-dark-hover font-bold"
                       : "hover:bg-skin-dark-hover"
                   }`}
                   onClick={() => {

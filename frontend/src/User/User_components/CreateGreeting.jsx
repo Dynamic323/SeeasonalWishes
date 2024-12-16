@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+
 import {
   Gift,
   Cake,
@@ -10,13 +12,17 @@ import {
   Moon,
   CloudSun,
   Zap,
+  SnowflakeIcon as Confetti,
+  PartyPopper,
+  Search,
+  Filter,
 } from "lucide-react";
-
 export function CreateGreeting({
   fields = [],
   onSubmit,
   initialValues = {},
   buttonText = "Submit",
+  color = initialValues.bg,
 }) {
   const [formData, setFormData] = useState(initialValues);
   const [selectedBg, setSelectedBg] = useState("");
@@ -31,7 +37,12 @@ export function CreateGreeting({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ ...formData, background: selectedBg });
+    // Include eventDate in the form data
+    onSubmit({
+      ...formData,
+      background: selectedBg,
+      eventDate: formData.eventDate,
+    });
   };
 
   const bgTemplates = [
@@ -191,6 +202,14 @@ export function CreateGreeting({
                   </option>
                 ))}
               </select>
+            ) : field.type === "date" ? (
+              <input
+                type="date"
+                name={field.name}
+                value={formData[field.name] || ""}
+                onChange={handleChange}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
             ) : (
               <input
                 type={field.type || "text"}
@@ -213,7 +232,9 @@ export function CreateGreeting({
                 key={template.id}
                 className={`cursor-pointer rounded-lg p-4 flex items-center justify-center ${
                   template.color
-                } ${selectedBg === template.color ? "ring-4 ring-blue-500" : ""}`}
+                } ${
+                  selectedBg === template.color ? "ring-4 ring-blue-500" : ""
+                }`}
                 onClick={() => setSelectedBg(template.color)}
               >
                 {template.icon}
@@ -226,21 +247,28 @@ export function CreateGreeting({
         </div>
 
         {/* Preview */}
-        <div className="mt-6">
-          <h3 className="text-lg font-medium mb-3">Preview</h3>
-          <div
-            className={`h-48 flex items-center justify-center text-white rounded-lg p-4 ${
-              selectedBg || "bg-gray-200"
-            }`}
-          >
-            <div className="text-center">
-              <h2 className="text-2xl font-bold">
-                {formData.recipientName || "Recipient's Name"}
-              </h2>
-              <p>{formData.messageContent || "Your message will appear here"}</p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className={`${
+            selectedBg || color
+          } rounded-2xl shadow-lg p-6 text-white transform transition-all duration-300 hover:scale-105 hover:shadow-2xl`}
+        >
+          <div className="flex items-center mb-4">
+            <div className="text-4xl mr-3">{formData.icon}</div>
+            <div>
+              <h2 className="text-2xl font-semibold">{formData.title}</h2>
+              <p className="text-sm opacity-80">{formData.type}</p>
             </div>
           </div>
-        </div>
+          <p className="mb-4 text-lg">
+            Dear {formData.recipientName || "Recipient's Name"},
+          </p>
+          <p className="mb-6 text-lg">
+            {formData.messageContent || "Your message will appear here"}
+          </p>
+        </motion.div>
 
         <button
           type="submit"

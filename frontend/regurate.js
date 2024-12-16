@@ -1,6 +1,6 @@
 // Function to handle updating CSS properties dynamically
 function HandelProperty(prop, value) {
-  let valtoArry = value; 
+  let valtoArry = value;
   for (let i = 0; i < prop.length; i++) {
     const property = prop[i];
 
@@ -18,7 +18,7 @@ function HandelProperty(prop, value) {
       "--gradient-background",
       `linear-gradient(${gradient})`
     );
-    console.log("Gradient Background Set: " + gradient);
+    // console.log("Gradient Background Set: " + gradient);
   }
 }
 
@@ -28,7 +28,7 @@ const cssProperties = {
     "--primary-color",
     "--secondary-color",
     "--background-color",
-    "--accent-color",
+    "--accent-color", 
     "--text-color",
     "--button-color",
     "--gradient-background",

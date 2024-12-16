@@ -8,18 +8,21 @@ function Use_template() {
 
   // Find the template by ID
   const result = WishesData.filter((wish) => wish.id === parseInt(id, 10));
+
+  // Handle case where template is not found
   if (!result || result.length === 0) {
     return <div>Template not found or loading...</div>;
   }
 
+
   // Destructure data from the first result
-  const { recipientName, title, message, category, bg } = result[0];
+  const { recipientName = "", title = "", message = "", category = "", color = "", icon = "" } = result[0];
 
   // State for the form fields
   const [recipient, setRecipientName] = useState(recipientName || "");
   const [messageContent, setMessageContent] = useState(message || "");
   const [selectedCategory, setSelectedCategory] = useState(category || "");
-  const [selctedbg, setselectedbg] = useState(bg || "");
+  const [selectedBg, setSelectedBg] = useState(color || "");
 
   // Form fields configuration
   const fields = [
@@ -51,7 +54,20 @@ function Use_template() {
 
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">Use Template</h2>
+      {/* <h2 className="text-xl font-bold mb-4">Use Template</h2>
+      <div
+        className={` ${selectedBg}   p-6 rounded-lg`}
+        style={{ backgroundColor: selectedBg }}
+      >
+        <img
+          src={icon}
+          alt={category}
+          className="w-full h-24 object-cover rounded-lg mb-4"
+        />
+        <h3 className="text-2xl font-bold text-center">{title}</h3>
+        <p className="text-center">{message}</p>
+      </div> */}
+
       <CreateGreeting
         fields={fields}
         onSubmit={handleFormSubmit}
@@ -59,7 +75,7 @@ function Use_template() {
           recipientName: recipient,
           messageContent: messageContent,
           category: selectedCategory,
-          bg:selctedbg,
+          bg: selectedBg,
         }}
         buttonText="Create Greeting"
       />
