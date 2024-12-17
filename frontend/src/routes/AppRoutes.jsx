@@ -19,7 +19,6 @@ import Settings from "../User/Pages/Settings";
 import Use_template from "../User/Pages/Use_template";
 import AdminDashboard from "../Admin/Dashboard";
 import AdminUsers from "../Admin/Index";
-import GreetingDetail from "../User/Pages/GreetingDetail";
 
 export const router = createBrowserRouter([
   {
@@ -112,9 +111,10 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "template/:id",
         element: (
           <ProtectedRoute>
-            <GreetingDetail />
+            <Use_template />
           </ProtectedRoute>
         ),
       },

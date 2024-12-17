@@ -23,7 +23,7 @@ export const WishesData = [
   {
     id: 1,
     type: "Birthday",
-    category: "B  irthday",
+    category: "Birthday",
     title: "Birthday Bash",
     recipientName: "Sarah",
     message:

@@ -8,6 +8,11 @@ const generateSlug = () => {
 
 const greetingSchema = new Schema(
   {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    }, // Reference to User model
     recipientName: { type: String, required: true },
     messageContent: { type: String, required: true },
     category: {
@@ -27,6 +32,11 @@ const greetingSchema = new Schema(
     icon: { type: String }, // Optional icon
     title: { type: String }, // Optional title (e.g., "Happy Birthday!")
     slug: { type: String, unique: true, default: generateSlug }, // Unique slug for sharing
+    status: {
+      type: String,
+      enum: ["Scheduled", "Delivered", "Draft", "Expired"], // Define possible status values
+      default: "Scheduled", // Default to "Scheduled" if no status is provided
+    },
   },
   {
     timestamps: true, // Automatically adds createdAt and updatedAt fields
