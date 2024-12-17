@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { WishesData } from "../../Guest/pages/ExploreTemplates";
 import { CreateGreeting } from "../User_components/CreateGreeting";
+import { api } from "../../services/api"; // Import your API functions
 
 function Use_template() {
   const { id } = useParams();
@@ -14,7 +15,6 @@ function Use_template() {
     return <div>Template not found or loading...</div>;
   }
 
-
   // Destructure data from the first result
   const { recipientName = "", title = "", message = "", category = "", color = "", icon = "" } = result[0];
 
@@ -23,15 +23,15 @@ function Use_template() {
   const [messageContent, setMessageContent] = useState(message || "");
   const [selectedCategory, setSelectedCategory] = useState(category || "");
   const [selectedBg, setSelectedBg] = useState(color || "");
+  const [eventDate, setEventDate] = useState(""); // Add state for event date
+  const [loading, setLoading] = useState(false); // State for loading
+  const [error, setError] = useState(null); // State for error messages
+  const [success, setSuccess] = useState(null); // State for success messages
 
   // Form fields configuration
   const fields = [
     { name: "recipientName", type: "text", placeholder: "Recipient's Name" },
-    {
-      name: "messageContent",
-      type: "textarea",
-      placeholder: "Message Content",
-    },
+    { name: "messageContent", type: "textarea", placeholder: "Message Content" },
     { name: "eventDate", type: "date", placeholder: "Event Date" },
     {
       name: "category",
@@ -48,15 +48,46 @@ function Use_template() {
   ];
 
   // Handle form submission
-  const handleFormSubmit = (formData) => {
-    console.log("Form Submitted:", formData);
+  const handleFormSubmit = async (formData) => {
+    setLoading(true);
+    setError(null);
+    setSuccess(null);
+
+    const token = localStorage.getItem("token"); // Get token from local storage (or context)
+
+    try {
+      // Call the API to create a greeting
+      const response = await api.createGreeting(
+        {
+          recipient: formData.recipientName,
+          message: formData.messageContent,
+          category: formData.category,
+          date: formData.eventDate,
+        },
+        token
+      );
+
+      setSuccess("Greeting created successfully!");
+      console.log("API Response:", response);
+
+      // Reset form fields (optional)
+      setRecipientName("");
+      setMessageContent("");
+      setSelectedCategory("");
+      setEventDate("");
+      setSelectedBg("");
+    } catch (err) {
+      setError(err.message || "Failed to create greeting");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div>
-      {/* <h2 className="text-xl font-bold mb-4">Use Template</h2>
+      <h2 className="text-xl font-bold mb-4">Use Template</h2>
       <div
-        className={` ${selectedBg}   p-6 rounded-lg`}
+        className={` ${selectedBg} p-6 rounded-lg`}
         style={{ backgroundColor: selectedBg }}
       >
         <img
@@ -66,7 +97,10 @@ function Use_template() {
         />
         <h3 className="text-2xl font-bold text-center">{title}</h3>
         <p className="text-center">{message}</p>
-      </div> */}
+      </div>
+
+      {error && <p className="text-red-500">{error}</p>}
+      {success && <p className="text-green-500">{success}</p>}
 
       <CreateGreeting
         fields={fields}
@@ -77,7 +111,7 @@ function Use_template() {
           category: selectedCategory,
           bg: selectedBg,
         }}
-        buttonText="Create Greeting"
+        buttonText={loading ? "Creating..." : "Create Greeting"}
       />
     </div>
   );

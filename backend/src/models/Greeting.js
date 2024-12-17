@@ -10,7 +10,11 @@ const greetingSchema = new Schema(
   {
     recipientName: { type: String, required: true },
     messageContent: { type: String, required: true },
-    category: { type: String, enum: ['birthday', 'anniversary', 'graduation', 'wedding', 'other'], required: true },
+    category: {
+      type: String,
+      enum: ["birthday", "anniversary", "graduation", "wedding", "other"],
+      required: true,
+    },
     background: { type: String, required: true }, // Color or background pattern
     eventDate: { type: Date, required: true },
     icon: { type: String }, // Optional icon
