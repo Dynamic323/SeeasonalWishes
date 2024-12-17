@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { CreateGreeting } from "../User_components/CreateGreeting";
 import { api } from "../../services/api"; // Make sure api.createGreeting exists in this file
+import { X } from "lucide-react";
 
 function Create() {
   const [recipientName, setRecipientName] = useState("");
@@ -79,8 +80,14 @@ function Create() {
     <div>
       {/* Error and Success messages */}
       {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+        <div className="fixed bottom-4 right-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded shadow-lg">
           {error}
+          <button
+            onClick={() => setError(null)}
+            className="ml-4 text-red-700 hover:text-red-900"
+          >
+            <X className="h-5 w-5" />
+          </button>
         </div>
       )}
       {success && (

@@ -16,7 +16,7 @@ import Guestbook from "../User/Pages.jsx/Guestbook";
 import Index from "../User/Pages.jsx/Index";
 import Templates from "../User/Pages.jsx/Templates";
 import Settings from "../User/Pages.jsx/Settings";
-// import Use_template from "../User/Pages.jsx/Use_template";
+import Use_template from "../User/Pages.jsx/Use_template";
 import AdminDashboard from "../Admin/Dashboard";
 import AdminUsers from "../Admin/Index";
 
@@ -114,7 +114,7 @@ export const router = createBrowserRouter([
         path: "template/:id",
         element: (
           <ProtectedRoute>
-            <Create />
+            <Use_template />
           </ProtectedRoute>
         ),
       },

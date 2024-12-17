@@ -12,7 +12,14 @@ const greetingSchema = new Schema(
     messageContent: { type: String, required: true },
     category: {
       type: String,
-      enum: ["birthday", "anniversary", "graduation", "wedding", "other"],
+      enum: [
+        "birthday",
+        "anniversary",
+        "Holiday",
+        "graduation",
+        "wedding",
+        "other",
+      ],
       required: true,
     },
     background: { type: String, required: true }, // Color or background pattern

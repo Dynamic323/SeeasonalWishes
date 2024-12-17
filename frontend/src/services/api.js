@@ -48,9 +48,7 @@ export const api = {
   createGreeting: async (formData, token) => {
     try {
 
-      console.log('====================================');
-      console.log(formData);
-      console.log('====================================');
+    
       const response = await fetch("http://localhost:3000/api/greetings", {
         method: "POST",
         headers: {
