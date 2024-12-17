@@ -10,15 +10,16 @@ import AdminLayout from "../Admin/AdminLayout";
 import AdminLogin from "../Admin/Login";
 import ProtectedRoute from "./ProtectedRoute";
 import UserLayout from "../User/UserLayout";
-import Create from "../User/Pages.jsx/Create";
-import Scheduled from "../User/Pages.jsx/Scheduled";
-import Guestbook from "../User/Pages.jsx/Guestbook";
-import Index from "../User/Pages.jsx/Index";
-import Templates from "../User/Pages.jsx/Templates";
-import Settings from "../User/Pages.jsx/Settings";
-import Use_template from "../User/Pages.jsx/Use_template";
+import Create from "../User/Pages/Create";
+import Scheduled from "../User/Pages/Scheduled";
+import Guestbook from "../User/Pages/Guestbook";
+import Index from "../User/Pages/Index";
+import Templates from "../User/Pages/Templates";
+import Settings from "../User/Pages/Settings";
+import Use_template from "../User/Pages/Use_template";
 import AdminDashboard from "../Admin/Dashboard";
 import AdminUsers from "../Admin/Index";
+import GreetingDetail from "../User/Pages/GreetingDetail";
 
 export const router = createBrowserRouter([
   {
@@ -111,10 +112,9 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "template/:id",
         element: (
           <ProtectedRoute>
-            <Use_template />
+            <GreetingDetail />
           </ProtectedRoute>
         ),
       },

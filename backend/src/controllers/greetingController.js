@@ -42,7 +42,8 @@ module.exports.createGreeting = async (req, res) => {
 module.exports.getUserGreetings = async (req, res) => {
   try {
     const userId = req.params.userId;
-
+ console.log(userId);
+ 
     const greetings = await Greeting.find({ userId });
 
     res.status(200).json({

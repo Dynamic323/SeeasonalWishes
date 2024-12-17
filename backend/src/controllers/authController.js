@@ -45,9 +45,12 @@ exports.loginUser = async (req, res) => {
       expiresIn: "1h",
     });
 
+    const userId = user._id
+
     res.json({ 
       message: "Login successful", 
       token,
+      userId,
       user: {
         email: user.email,
         isAdmin: user.isAdmin

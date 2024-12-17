@@ -25,8 +25,13 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       setError(null);
       const response = await api.login({ email, password });
+
+
+      
+      
       if (response.token) {
         localStorage.setItem("token", response.token);
+        localStorage.setItem("userId", response.userId);
         const decoded = await decodeToken(response.token);
         const userData = {
           email,

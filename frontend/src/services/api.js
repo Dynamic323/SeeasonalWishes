@@ -47,8 +47,6 @@ export const api = {
   // Greeting-related functions
   createGreeting: async (formData, token) => {
     try {
-
-    
       const response = await fetch("http://localhost:3000/api/greetings", {
         method: "POST",
         headers: {
@@ -61,8 +59,9 @@ export const api = {
       if (!response.ok) {
         const error = await response.json();
 
-  
-        throw new Error(error.error || error.message|| "Failed to create greeting");
+        throw new Error(
+          error.error || error.message || "Failed to create greeting"
+        );
       }
 
       return response.json();
@@ -72,13 +71,13 @@ export const api = {
     }
   },
 
-  async getUserGreetings(token) {
+  fetchUserGreetings: async (userId, token) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/greetings`, {
+      const response = await fetch(`${API_BASE_URL}/greetings/${userId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Pass token for authentication
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -88,9 +87,10 @@ export const api = {
         throw new Error(data.message || "Failed to fetch greetings");
       }
 
-      return data;
-    } catch (error) {
-      throw error;
+      return data.data; // Return greetings array
+    } catch (err) {
+      console.error("Error fetching greetings:", err);
+      throw err; // Rethrow error for the caller to handle
     }
   },
 
