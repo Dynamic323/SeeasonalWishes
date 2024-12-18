@@ -118,7 +118,7 @@ const ContactPage = () => {
           </div> */}
 
           {/* Contact Information */}
-          <div className="bg-gradient-autumn w-[60%] p-8 rounded-2xl shadow-2xl text-skin-dark-text backdrop-blur-sm transform hover:scale-90 transition-all duration-300">
+          <div className="bg-gradient-autumn sm:w-[60%] lg:w-[60%] w-[100%] p-8 rounded-2xl shadow-2xl text-skin-dark-text backdrop-blur-sm transform hover:scale-90 transition-all duration-300">
             <h2 className="text-3xl font-semibold mb-8 shadow-text border-b-2 border-skin-light-text pb-2">
               Contact Information
             </h2>

@@ -14,7 +14,7 @@ function Footer() {
             wishes.
           </p>
         </div>
-        <div className="grid grid-cols-3 w-full ">
+        <div className="grid sm:grid-cols-3 lg:grid-cols-3 grid-flow-row gap-y-4 sm:gap-y-0 lg:gap-y-0 w-full ">
           {/* Quick Links Section */}
           <div>
             <h2 className="text-2xl sm:text-3xl font-semibold">Quick Links</h2>
