@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+  import React, { useState } from "react";
 import { CreateGreeting } from "../User_components/CreateGreeting";
 import { api } from "../../services/api"; // Make sure api.createGreeting exists in this file
 import { X } from "lucide-react";
