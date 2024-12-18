@@ -25,7 +25,7 @@ export function CreateGreeting({
   color = initialValues.bg,
 }) {
   const [formData, setFormData] = useState(initialValues);
-  const [selectedBg, setSelectedBg] = useState("");
+  const [selectedBg, setSelectedBg] = useState(color||"");
 
   const handleChange = (e) => {
     const { name, value } = e.target;

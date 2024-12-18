@@ -2,9 +2,7 @@ import React from "react";
 import ExploreTemplates from "../../Guest/pages/ExploreTemplates";
 
 function Templates() {
-  return (
-   <ExploreTemplaPtes/>
-  );
+  return <ExploreTemplates />;
 }
 
 export default Templates;
