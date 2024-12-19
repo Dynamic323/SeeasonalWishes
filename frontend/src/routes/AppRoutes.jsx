@@ -19,6 +19,8 @@ import Settings from "../User/pages/Settings.jsx";
 import Use_template from "../User/pages/Use_template.jsx";
 import AdminDashboard from "../Admin/Dashboard";
 import AdminUsers from "../Admin/Index";
+import GreetingView from "../Guest/GreetingView.jsx";
+
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +53,11 @@ export const router = createBrowserRouter([
         element: <LoginPage />,
       },
     ],
+  },
+
+  {
+    path: "/whish/:slug",
+    element: <GreetingView />,
   },
 
   {

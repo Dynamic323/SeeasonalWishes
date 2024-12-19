@@ -73,7 +73,6 @@ export const api = {
 
   fetchUserGreetings: async (userId, token) => {
     try {
-
       const response = await fetch(`${API_BASE_URL}/greetings/${userId}`, {
         method: "GET",
         headers: {
@@ -95,13 +94,12 @@ export const api = {
     }
   },
 
-  async getGreetingBySlug(slug, token) {
+  async getGreetingBySlug(slug) {
     try {
-      const response = await fetch(`${API_BASE_URL}/greetings/${slug}`, {
+      const response = await fetch(`${API_BASE_URL}/greetings/share/${slug}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Pass token for authentication
         },
       });
 

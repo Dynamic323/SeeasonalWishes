@@ -48,10 +48,7 @@ export default function Scheduled() {
     greeting.recipientName?.toLowerCase().includes(searchTerm.toLowerCase()) &&
   (statusFilter === "All" || greeting.status?.toLowerCase() === statusFilter.toLowerCase())
 );
-console.log('====================================');
-console.log(filteredGreetings);
-console.log('====================================');
-  
+
   
   
 

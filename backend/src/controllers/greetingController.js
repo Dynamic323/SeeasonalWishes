@@ -1,12 +1,19 @@
-const Greeting = require("../models/Greeting");  // Import the Greeting model
+const Greeting = require("../models/Greeting"); // Import the Greeting model
 
 // Create a new greeting
 module.exports.createGreeting = async (req, res) => {
   try {
-    const { recipientName, messageContent, category, background, eventDate, userId } = req.body;
+    const {
+      recipientName,
+      messageContent,
+      category,
+      background,
+      eventDate,
+      userId,
+    } = req.body;
 
     // Dynamically import nanoid
-    const { nanoid } = await import('nanoid'); // Dynamically import nanoid
+    const { nanoid } = await import("nanoid");
 
     // Generate a unique slug
     const slug = nanoid(10); // Generates a unique 10-character slug
@@ -38,12 +45,11 @@ module.exports.createGreeting = async (req, res) => {
   }
 };
 
-// Other functions using module.exports
+// Get all greetings for a user
 module.exports.getUserGreetings = async (req, res) => {
   try {
     const userId = req.params.userId;
- console.log(userId);
- 
+
     const greetings = await Greeting.find({ userId });
 
     res.status(200).json({
@@ -51,7 +57,7 @@ module.exports.getUserGreetings = async (req, res) => {
       data: greetings,
     });
   } catch (err) {
-    console.error("Error fetching user greetings:", err);  // Log the error for debugging
+    console.error("Error fetching user greetings:", err); // Log the error for debugging
     res.status(500).json({
       success: false,
       message: "Failed to fetch greetings",
@@ -60,29 +66,19 @@ module.exports.getUserGreetings = async (req, res) => {
   }
 };
 
+// Get greeting by slug
 module.exports.getGreetingBySlug = async (req, res) => {
-  try {
-    const { slug } = req.params;
+  const { slug } = req.params;
 
+  try {
     const greeting = await Greeting.findOne({ slug });
 
     if (!greeting) {
-      return res.status(404).json({
-        success: false,
-        message: "Greeting not found",
-      });
+      return res.status(404).json({ message: "Greeting not found" });
     }
 
-    res.status(200).json({
-      success: true,
-      data: greeting,
-    });
-  } catch (err) {
-    console.error("Error fetching greeting by slug:", err);  // Log the error for debugging
-    res.status(500).json({
-      success: false,
-      message: "Failed to fetch greeting",
-      error: err.message,
-    });
+    res.status(200).json(greeting);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching greeting" });
   }
 };
