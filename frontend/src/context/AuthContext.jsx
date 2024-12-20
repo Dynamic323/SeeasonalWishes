@@ -1,27 +1,28 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { api } from "../services/api";
+import { api } from "../services/api"; // Ensure your API is correctly implemented
 import * as jose from "jose";
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // Default to true while restoring session
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const decodeToken = async (token) => {
     try {
-      // Decode the payload without verifying the signature
-      const decoded = jose.decodeJwt(token);
+      const decoded = jose.decodeJwt(token); // Decodes JWT without verification
+      // console.log("Decoded Token:", decoded); // Debugging
       return decoded;
     } catch (err) {
-      console.error("Error decoding token:", err);
+      console.error("Error decoding token:", err.message);
       return null;
     }
   };
 
   const restoreUser = async () => {
     const token = localStorage.getItem("token");
+    // console.log("Restoring user session, token:", token); // Debugging
     if (token) {
       const decoded = await decodeToken(token);
       if (decoded) {
@@ -30,14 +31,15 @@ export const AuthProvider = ({ children }) => {
           isAdmin: decoded.isAdmin || false,
           id: decoded.id,
         };
+        // console.log("Restored User Data:", userData); // Debugging
         setUser(userData);
       }
     }
-    setLoading(false); // Mark loading as complete after restoration
+    setLoading(false);
   };
 
   useEffect(() => {
-    restoreUser(); // Run on initial render to restore user state
+    restoreUser(); // Restore user state on component mount
   }, []);
 
   const login = async (email, password) => {
@@ -45,7 +47,6 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       setError(null);
       const response = await api.login({ email, password });
-
       if (response.token) {
         localStorage.setItem("token", response.token);
         const decoded = await decodeToken(response.token);
@@ -57,10 +58,11 @@ export const AuthProvider = ({ children }) => {
         setUser(userData);
         return userData;
       } else {
-        throw new Error(response.message);
+        throw new Error(response.message || "Login failed");
       }
     } catch (err) {
       setError(err.message);
+      console.error("Login Error:", err.message);
       return false;
     } finally {
       setLoading(false);
@@ -79,6 +81,7 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (err) {
       setError(err.message);
+      console.error("Registration Error:", err.message);
       return false;
     } finally {
       setLoading(false);
@@ -86,6 +89,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    console.log("Logging out...");
     localStorage.removeItem("token");
     setUser(null);
   };
