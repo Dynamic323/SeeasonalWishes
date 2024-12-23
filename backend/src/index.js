@@ -11,7 +11,7 @@ const app = express();
 const corsOptions = {
   origin: ["https://seeasonal-wishes-fnd.vercel.app", "http://localhost:5173"], // Multiple allowed origins
   methods: ["GET", "POST", "PUT", "DELETE"], // Methods allowed
-  allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+  allowedHeaders: ["Content-Type", "application/json"], // Allowed headers
   credentials: true, // If your backend is handling cookies or session data
 };
 
