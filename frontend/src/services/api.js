@@ -1,4 +1,5 @@
-const API_BASE_URL = "http://localhost:3000/api";
+// const API_BASE_URL = "http://localhost:3000/api";
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const api = {
   // Auth functions
@@ -24,6 +25,9 @@ export const api = {
   },
 
   async login({ email, password }) {
+    console.log("====================================");
+    console.log(API_BASE_URL);
+    console.log("====================================");
     try {
       const response = await fetch(`${API_BASE_URL}/auth/login`, {
         method: "POST",

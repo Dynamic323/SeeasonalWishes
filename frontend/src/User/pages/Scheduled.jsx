@@ -8,7 +8,7 @@ export default function Scheduled() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [loading, setLoading] = useState(false);
-  const AppiUrl = import.meta.env.VITE_API_URL;
+  const AppUrl = import.meta.env.VITE_APP_URL;
 
   const token = localStorage.getItem("token"); // Get token from local storage (or context)
   const userId = localStorage.getItem("userId"); // Get token from local storage (or context)
@@ -56,7 +56,7 @@ export default function Scheduled() {
 
   const handleCopyToClipboard = (e, greeting) => {
     e.preventDefault(); // Prevent navigation to the link when copying
-    const textToCopy = `${AppiUrl}whish/${greeting.slug}`;
+    const textToCopy = `${AppUrl}whish/${greeting.slug}`;
     navigator.clipboard
       .writeText(textToCopy)
       .then(() => {
@@ -145,7 +145,7 @@ export default function Scheduled() {
                       onClick={(e) => handleCopyToClipboard(e, greeting)} // Pass e and greeting correctly
                       className="p-2 bg-gray-100 border flex gap-2 rounded-lg shadow hover:bg-gray-200"
                     >
-                      {AppiUrl}
+                      {AppUrl}
                       {greeting.slug}
                       <Calendar className="h-4 w-4 text-gray-600" />
                     </Link>
