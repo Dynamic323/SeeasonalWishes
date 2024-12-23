@@ -9,11 +9,12 @@ require("dotenv").config();
 const app = express();
 
 const corsOptions = {
-  origin: "https://seeasonal-wishes-fnd.vercel.app", // your frontend URL
-  methods: ["GET", "POST", "PUT", "DELETE"], // methods allowed
-  allowedHeaders: ["Content-Type", "Authorization"], // headers allowed
-  credentials: true, // if your backend is handling cookies or session data
+  origin: ["https://seeasonal-wishes-fnd.vercel.app", "http://localhost:5173"], // Multiple allowed origins
+  methods: ["GET", "POST", "PUT", "DELETE"], // Methods allowed
+  allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+  credentials: true, // If your backend is handling cookies or session data
 };
+
 app.use(cors(corsOptions));
 app.use(express.json());
 
