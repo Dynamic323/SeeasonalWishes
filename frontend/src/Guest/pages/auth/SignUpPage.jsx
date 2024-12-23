@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 
 function SignUpPage() {
@@ -89,12 +89,12 @@ function SignUpPage() {
         </form>
         <div className="mt-6 text-skin-dark-text">
           <span className="mr-2">Already have an account?</span>
-          <a
-            href="/login"
+          <Link
+            to="/login"
             className="text-skin-button hover:text-skin-primary transition duration-300"
           >
             Login
-          </a>
+          </Link>
         </div>
       </div>
     </div>
