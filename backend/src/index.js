@@ -8,12 +8,13 @@ require("dotenv").config();
 
 const app = express();
 
-// Middleware
-// const corsOptions = {
-//   origin: process.env.FRONTEND_URL || "*", // Replace with your frontend URL in production
-//   credentials: true,
-// };
-app.use(cors());
+const corsOptions = {
+  origin: "https://seeasonal-wishes-fnd.vercel.app", // your frontend URL
+  methods: ["GET", "POST", "PUT", "DELETE"], // methods allowed
+  allowedHeaders: ["Content-Type", "Authorization"], // headers allowed
+  credentials: true, // if your backend is handling cookies or session data
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Routes
