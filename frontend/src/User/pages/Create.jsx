@@ -1,4 +1,4 @@
-  import React, { useState } from "react";
+import React, { useState } from "react";
 import { CreateGreeting } from "../User_components/CreateGreeting";
 import { api } from "../../services/api"; // Make sure api.createGreeting exists in this file
 import { X } from "lucide-react";
@@ -41,6 +41,7 @@ function Create() {
     setSuccess(null);
 
     const token = localStorage.getItem("token"); // Get token from local storage (or context)
+    const userId = localStorage.getItem("userId"); // Get userId from local storage (or context)
 
     try {
       // Call the API to create a greeting
@@ -52,6 +53,7 @@ function Create() {
           category: formData.category,
           eventDate: formData.eventDate,
           background: formData.background,
+          userId,
         },
         token
       );
@@ -90,9 +92,16 @@ function Create() {
           </button>
         </div>
       )}
+
       {success && (
-        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+        <div className="fixed bottom-4 right-4 bg-green-100 border border-green-400 text-green-700 p-4 rounded shadow-lg">
           {success}
+          <button
+            onClick={() => setSuccess(null)}
+            className="ml-4 border-green-500 hover:text-green-700"
+          >
+            <X className="h-5 w-5" />
+          </button>
         </div>
       )}
 

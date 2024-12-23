@@ -8,6 +8,7 @@ export default function Scheduled() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [loading, setLoading] = useState(false);
+  const AppiUrl = import.meta.env.VITE_API_URL;
 
   const token = localStorage.getItem("token"); // Get token from local storage (or context)
   const userId = localStorage.getItem("userId"); // Get token from local storage (or context)
@@ -44,18 +45,30 @@ export default function Scheduled() {
   }, []);
 
   // Filter greetings based on search term and status
-  const filteredGreetings = greetings.filter((greeting) =>
-    greeting.recipientName?.toLowerCase().includes(searchTerm.toLowerCase()) &&
-  (statusFilter === "All" || greeting.status?.toLowerCase() === statusFilter.toLowerCase())
-);
+  const filteredGreetings = greetings.filter(
+    (greeting) =>
+      greeting.recipientName
+        ?.toLowerCase()
+        .includes(searchTerm.toLowerCase()) &&
+      (statusFilter === "All" ||
+        greeting.status?.toLowerCase() === statusFilter.toLowerCase())
+  );
 
-  
-  
-
+  const handleCopyToClipboard = (e, greeting) => {
+    e.preventDefault(); // Prevent navigation to the link when copying
+    const textToCopy = `${AppiUrl}whish/${greeting.slug}`;
+    navigator.clipboard
+      .writeText(textToCopy)
+      .then(() => {
+        alert("Link copied to clipboard!");
+      })
+      .catch((err) => {
+        console.error("Failed to copy text: ", err);
+      });
+  };
   return (
     <div className="p-6 bg-white rounded-xl shadow-sm">
       <h2 className="text-2xl font-semibold mb-6">Scheduled Greetings</h2>
-
       {/* Filters */}
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center space-x-4">
@@ -101,7 +114,7 @@ export default function Scheduled() {
                   Message
                 </th>
                 <th className="px-4 py-2 text-left text-sm font-semibold text-gray-600">
-                Link
+                  Link
                 </th>
                 <th className="px-4 py-2 text-left text-sm font-semibold text-gray-600">
                   Status
@@ -122,10 +135,20 @@ export default function Scheduled() {
                     {greeting.recipientName}
                   </td>
                   <td className="px-4 py-2 text-sm text-gray-600">
-                    {greeting.messageContent}
+                    {greeting.messageContent.length > 20
+                      ? `${greeting.messageContent.slice(0, 20)}...`
+                      : "lol"}
                   </td>
                   <td className="px-4 py-2 text-sm text-gray-600">
-                    {greeting.slug || "N/A"}
+                    <Link
+                      to={`/whish/${greeting.slug}`}
+                      onClick={(e) => handleCopyToClipboard(e, greeting)} // Pass e and greeting correctly
+                      className="p-2 bg-gray-100 border flex gap-2 rounded-lg shadow hover:bg-gray-200"
+                    >
+                      {AppiUrl}
+                      {greeting.slug}
+                      <Calendar className="h-4 w-4 text-gray-600" />
+                    </Link>
                   </td>
                   <td className="px-4 py-2">
                     <span
@@ -146,12 +169,7 @@ export default function Scheduled() {
                   <td className="px-4 py-2">
                     <div className="flex space-x-2">
                       {/* View Button */}
-                      <Link
-                        to={`/greetings/${greeting.slug}`}
-                        className="p-2 bg-gray-100 border rounded-lg shadow hover:bg-gray-200"
-                      >
-                        <Calendar className="h-4 w-4 text-gray-600" />
-                      </Link>
+
                       {/* Edit Button */}
                       <button className="p-2 bg-gray-100 border rounded-lg shadow hover:bg-gray-200">
                         <Edit className="h-4 w-4 text-gray-600" />

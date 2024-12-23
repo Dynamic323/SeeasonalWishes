@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Share2, Gift, Clock, Send } from "lucide-react";
-import { useParams } from "react-router-dom";
+import { Share2, Gift, Clock, Send, MessageCircle } from "lucide-react";
+import { Link, useParams } from "react-router-dom";
 import { api } from "../services/api";
 
 const calculateTimeLeft = (targetDate) => {
@@ -80,10 +80,11 @@ const GiftComponent = ({ onOpen }) => {
 export default function GreetingView() {
   const { slug } = useParams();
 
-  const [data, setData] = useState(null); // Initially null to handle loading state
+  const [data, setData] = useState(null);
   const [isEventPassed, setIsEventPassed] = useState(false);
   const [isGiftOpened, setIsGiftOpened] = useState(false);
   const [userMessage, setUserMessage] = useState("");
+  const [showReplyForm, setShowReplyForm] = useState(false);
 
   useEffect(() => {
     if (slug) {
@@ -100,7 +101,7 @@ export default function GreetingView() {
       };
 
       checkEventDate();
-      const timer = setInterval(checkEventDate, 1000 * 60 * 60); // Check every hour
+      const timer = setInterval(checkEventDate, 1000 * 60 * 60);
       return () => clearInterval(timer);
     }
   }, [data?.eventDate]);
@@ -110,6 +111,7 @@ export default function GreetingView() {
     e.preventDefault();
     console.log("Message submitted:", userMessage);
     setUserMessage("");
+    setShowReplyForm(false);
   };
 
   const formatDate = (dateString) =>
@@ -139,14 +141,14 @@ export default function GreetingView() {
 
   return (
     <div
-      className={`min-h-screen flex flex-col justify-between p-6 md:p-12 ${
-        background
-          ? `${background}`
-          : "bg-gradient-to-r from-pink-500 to-purple-500"
-      }`}
-      //   style={{
-      //     background: background ? background : "linear-gradient(to bottom right, #4f46e5, #7c3aed)",
-      //   }}
+      className={`${
+        background ? `${background}` : ""
+      } min-h-screen  flex flex-col justify-between p-6 md:p-12 bg-gradient-to-br `}
+      style={{
+        // backgroundImage: background ? `url(${background})` : 'none',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
       <motion.header
         initial={{ opacity: 0, y: -20 }}
@@ -159,7 +161,7 @@ export default function GreetingView() {
         </h1>
         <h2 className="text-2xl md:text-3xl font-semibold text-white drop-shadow-md">
           {isEventPassed || isGiftOpened
-            ? `Dear ${recipientName},`
+            ? `To ${recipientName},`
             : "Something wonderful is coming..."}
         </h2>
       </motion.header>
@@ -173,7 +175,7 @@ export default function GreetingView() {
           transition={{ duration: 0.5 }}
           className="flex-grow flex flex-col items-center justify-center max-w-3xl mx-auto"
         >
-          <div className="bg-white bg-opacity-95 rounded-lg p-8 shadow-2xl text-center w-full">
+          <div className="bg-white bg-opacity-95 rounded-lg p-8 shadow-2xl text-center w-full backdrop-blur-md">
             {!isEventPassed && !isGiftOpened ? (
               <>
                 <GiftComponent onOpen={handleGiftOpen} />
@@ -202,22 +204,34 @@ export default function GreetingView() {
                   </p>
                 )}
                 {isEventPassed && (
-                  <form onSubmit={handleMessageSubmit} className="mt-6">
-                    <textarea
-                      value={userMessage}
-                      onChange={(e) => setUserMessage(e.target.value)}
-                      placeholder="Leave a message for the sender..."
-                      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      rows="4"
-                    />
-                    <button
-                      type="submit"
-                      className="mt-4 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full inline-flex items-center transition duration-300"
-                    >
-                      <Send className="mr-2" size={20} />
-                      Send Message
-                    </button>
-                  </form>
+                  <div className="mt-6">
+                    {!showReplyForm ? (
+                      <button
+                        onClick={() => setShowReplyForm(true)}
+                        className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full inline-flex items-center transition duration-300"
+                      >
+                        <MessageCircle className="mr-2" size={20} />
+                        Leave a reply
+                      </button>
+                    ) : (
+                      <form onSubmit={handleMessageSubmit}>
+                        <textarea
+                          value={userMessage}
+                          onChange={(e) => setUserMessage(e.target.value)}
+                          placeholder="Leave a message for the sender..."
+                          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                          rows="4"
+                        />
+                        <button
+                          type="submit"
+                          className="mt-4 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full inline-flex items-center transition duration-300"
+                        >
+                          <Send className="mr-2" size={20} />
+                          Send Message
+                        </button>
+                      </form>
+                    )}
+                  </div>
                 )}
               </>
             )}
@@ -240,20 +254,18 @@ export default function GreetingView() {
           <Share2 className="mr-2" size={20} />
           Share
         </button>
-        <button
-          onClick={() => {
-            /* Implement create functionality */
-          }}
-          className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full inline-flex items-center transition duration-300"
-        >
-          <Gift className="mr-2" size={20} />
-          Create Your Own
-        </button>
+        <Link to={"/login"}>
+          <button
+            onClick={() => {
+              /* Implement create functionality */
+            }}
+            className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full inline-flex items-center transition duration-300"
+          >
+            <Gift className="mr-2" size={20} />
+            Create Your Own
+          </button>
+        </Link>
       </motion.footer>
     </div>
   );
 }
-
-// Example usage
-
-//  GreetingView();
