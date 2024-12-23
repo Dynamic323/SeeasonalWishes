@@ -81,7 +81,7 @@ function Navbar() {
                   {item.text}
                 </Link>
               ))}
-              <Link to="/sign-in">
+              <Link to="/signup">
                 <button
                   className="w-full bg-skin-button hover:bg-skin-primary text-skin-light-text font-bold py-2 px-4 rounded transition duration-300"
                   onClick={() => setIsMenuOpen(false)}
