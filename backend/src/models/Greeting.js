@@ -1,18 +1,10 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
-
-// Helper function to generate a unique slug
-const generateSlug = () => {
-  return Math.random().toString(36).substring(2, 15); // Generates a unique slug
-};
-
 const greetingSchema = new Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
-    }, // Reference to User model
+    },
     recipientName: { type: String, required: true },
     messageContent: { type: String, required: true },
     category: {
@@ -27,19 +19,26 @@ const greetingSchema = new Schema(
       ],
       required: true,
     },
-    background: { type: String, required: true }, // Color or background pattern
+    background: { type: String, required: true },
     eventDate: { type: Date, required: true },
-    icon: { type: String }, // Optional icon
-    title: { type: String }, // Optional title (e.g., "Happy Birthday!")
-    slug: { type: String, unique: true, default: generateSlug }, // Unique slug for sharing
+    icon: { type: String },
+    title: { type: String },
+    slug: { type: String, unique: true, default: generateSlug },
     status: {
       type: String,
-      enum: ["Scheduled", "Delivered", "Draft", "Expired"], // Define possible status values
-      default: "Scheduled", // Default to "Scheduled" if no status is provided
+      enum: ["Scheduled", "Delivered", "Draft", "Expired"],
+      default: "Scheduled",
     },
+    replies: [
+      {
+        senderName: { type: String, required: true },
+        replyContent: { type: String, required: true },
+        createdAt: { type: Date, default: Date.now },
+      },
+    ], // Embedding replies directly
   },
   {
-    timestamps: true, // Automatically adds createdAt and updatedAt fields
+    timestamps: true,
   }
 );
 
