@@ -61,6 +61,8 @@ const GiftComponent = ({ onOpen }) => {
   return (
     <motion.div
       initial={{ scale: 0 }}
+      aria-label="Open gift"
+      role="button"
       animate={{ scale: 1 }}
       transition={{ type: "spring", stiffness: 260, damping: 20 }}
       className="cursor-pointer text-center"
@@ -83,12 +85,17 @@ export default function GreetingView() {
   const [data, setData] = useState(null);
   const [isEventPassed, setIsEventPassed] = useState(false);
   const [isGiftOpened, setIsGiftOpened] = useState(false);
-  const [userMessage, setUserMessage] = useState("");
+  const [replyContent, setReplyContent] = useState("");
   const [showReplyForm, setShowReplyForm] = useState(false);
+  const [senderName, setSenderName] = useState(""); // Define senderName
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (slug) {
-      api.getGreetingBySlug(slug).then((res) => setData(res));
+      api
+        .getGreetingBySlug(slug)
+        .then((res) => setData(res))
+        .catch((err) => console.error("Error fetching greeting:", err));
     }
   }, [slug]);
 
@@ -101,17 +108,49 @@ export default function GreetingView() {
       };
 
       checkEventDate();
-      const timer = setInterval(checkEventDate, 1000 * 60 * 60);
+      // const timer = setInterval(checkEventDate, 1000 * 60 * 60);
+      const timer = setInterval(checkEventDate, 1000);
+
       return () => clearInterval(timer);
     }
   }, [data?.eventDate]);
 
+  const greetingId = data?._id;
+
   const handleGiftOpen = () => setIsGiftOpened(true);
-  const handleMessageSubmit = (e) => {
+  const handleMessageSubmit = async (e) => {
     e.preventDefault();
-    console.log("Message submitted:", userMessage);
-    setUserMessage("");
-    setShowReplyForm(false);
+
+    if (!senderName || !replyContent) {
+      alert("Please fill in both your name and the message.");
+      return;
+    }
+
+    const payload = {
+      senderName: senderName,
+      replyContent: replyContent,
+      greetingId: greetingId,
+    };
+
+    setLoading(true); // Set loading state to true before making the API call
+
+    try {
+      const response = await api.sendReply(payload);
+
+      if (response.message === "Reply added successfully") {
+        alert("Message sent successfully!");
+        setSenderName("");
+        setReplyContent("");
+        setShowReplyForm(false);
+      } else {
+        alert("Failed to send the message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting message:", error);
+      alert("An error occurred while sending your message.");
+    } finally {
+      setLoading(false); // Set loading state to false after the request is completed
+    }
   };
 
   const formatDate = (dateString) =>
@@ -137,7 +176,7 @@ export default function GreetingView() {
     icon,
     category,
     messageContent,
-  } = data;
+  } = data || {};
 
   return (
     <div
@@ -215,19 +254,38 @@ export default function GreetingView() {
                       </button>
                     ) : (
                       <form onSubmit={handleMessageSubmit}>
+                        {/* Sender's Name Field */}
+                        <input
+                          type="text"
+                          value={senderName}
+                          onChange={(e) => setSenderName(e.target.value)}
+                          placeholder="Your Name"
+                          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4"
+                          required
+                        />
+
+                        {/* Message Textarea */}
                         <textarea
-                          value={userMessage}
-                          onChange={(e) => setUserMessage(e.target.value)}
+                          value={replyContent}
+                          onChange={(e) => setReplyContent(e.target.value)}
                           placeholder="Leave a message for the sender..."
                           className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                           rows="4"
+                          required
                         />
+
+                        {/* Submit Button */}
                         <button
                           type="submit"
                           className="mt-4 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full inline-flex items-center transition duration-300"
+                          disabled={loading} // Disable the button when loading
                         >
-                          <Send className="mr-2" size={20} />
-                          Send Message
+                          {loading ? (
+                            <div className="animate-spin mr-2 w-5 h-5 border-4 border-t-4 border-white rounded-full"></div> // Loading spinner
+                          ) : (
+                            <Send className="mr-2" size={20} />
+                          )}
+                          {loading ? "Sending..." : "Send Message"}
                         </button>
                       </form>
                     )}

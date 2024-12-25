@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const replyRoutes = require("./routes/replyRoutes");
 const greetingRoutes = require("./routes/greetingRoutes");
 require("dotenv").config();
 
@@ -19,6 +20,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Routes
+
+app.use("/api/replies", replyRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/greetings", greetingRoutes);

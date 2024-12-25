@@ -48,14 +48,23 @@ export const AuthProvider = ({ children }) => {
       setError(null);
       const response = await api.login({ email, password });
       if (response.token) {
+        // Save the token to localStorage
         localStorage.setItem("token", response.token);
+
+        // Decode the token to extract user details
         const decoded = await decodeToken(response.token);
         const userData = {
           email,
           isAdmin: decoded?.isAdmin || false,
           id: decoded?.id,
         };
+
+        // Save user id to localStorage
+        localStorage.setItem("userId", userData.id);
+
+        // Update the user state
         setUser(userData);
+
         return userData;
       } else {
         throw new Error(response.message || "Login failed");

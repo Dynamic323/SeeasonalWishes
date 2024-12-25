@@ -1,35 +1,51 @@
-import { useState } from "react";
-import { ChevronLeft, ChevronRight, Star, MessageCircle } from "lucide-react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight, Star, MessageCircle } from "lucide-react";
+import { api } from "../../services/api";
 
-// Sample data for guestbook messages
-const allMessages = Array(50)
-  .fill()
-  .map((_, index) => ({
-    id: index + 1,
-    sender: `Sender ${index + 1}`,
-    message: `Thank you for the wonderful ${
-      index % 2 === 0 ? "birthday" : "holiday"
-    } wishes! It really made my day special.`,
-    date: new Date(Date.now() - Math.floor(Math.random() * 10000000000))
-      .toISOString()
-      .split("T")[0],
-    rating: Math.floor(Math.random() * 5) + 1,
-  }));
-
-export default function UserGuestbookPage() {
+const UserGuestbookPage = () => {
+  const [messages, setMessages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const messagesPerPage = 5;
-  const totalPages = Math.ceil(allMessages.length / messagesPerPage);
+  const [messagesPerPage] = useState(5);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const userId = localStorage.getItem("userId");
 
-  const indexOfLastMessage = currentPage * messagesPerPage;
-  const indexOfFirstMessage = indexOfLastMessage - messagesPerPage;
-  const currentMessages = allMessages.slice(
-    indexOfFirstMessage,
-    indexOfLastMessage
+  useEffect(() => {
+    const fetchReplies = async () => {
+      try {
+        setLoading(true);
+        const response = await api.getRepliesForUser({ userid: userId });
+        setMessages(response.data); // Adjust based on your API's response structure
+      } catch (err) {
+        setError("Failed to load messages. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchReplies();
+  }, [userId]);
+
+  const totalPages = Math.ceil(messages.length / messagesPerPage);
+  const currentMessages = messages.slice(
+    (currentPage - 1) * messagesPerPage,
+    currentPage * messagesPerPage
   );
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) => {
+    if (pageNumber > 0 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+    }
+  };
+
+  if (loading) {
+    return <div>Loading messages...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <motion.div
@@ -112,4 +128,6 @@ export default function UserGuestbookPage() {
       </motion.div>
     </motion.div>
   );
-}
+};
+
+export default UserGuestbookPage;

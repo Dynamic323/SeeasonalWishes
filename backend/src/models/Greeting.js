@@ -1,3 +1,12 @@
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
+
+// Helper function to generate a unique slug
+const generateSlug = () => {
+  return Math.random().toString(36).substring(2, 15); // Generates a unique slug
+};
+
+
 const greetingSchema = new Schema(
   {
     userId: {
@@ -45,3 +54,12 @@ const greetingSchema = new Schema(
 const Greeting = mongoose.model("Greeting", greetingSchema);
 
 module.exports = Greeting;
+
+
+
+
+
+
+// ///////////////////////////
+
+

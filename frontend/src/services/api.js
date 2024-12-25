@@ -137,4 +137,59 @@ export const api = {
       throw error;
     }
   },
+
+
+
+
+
+  sendReply: async (payload) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/replies`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+  
+      if (!response.ok) {
+        const errorMessage = await response.text(); // Get the response body
+        console.error(`Error sending reply: ${response.status} - ${errorMessage}`);
+        throw new Error(`Error sending reply: ${response.status} - ${errorMessage}`);
+      }
+
+      // Check if the response is JSON
+      const contentType = response.headers.get('Content-Type');
+      if (contentType && contentType.includes('application/json')) {
+        const data = await response.json();
+        return data;
+      } else {
+        throw new Error("Received non-JSON response");
+      }
+    } catch (error) {
+      console.error("Error sending reply:", error);
+      throw error; // You can also re-throw or return an error response to handle in the UI
+    }
+  },
+  
+  getRepliesForUser: async ({ userId }) => {
+    try {
+      // Use fetch to make the GET request
+      const response = await fetch(`/api/replies/${userId}`);
+  
+      // Check if the response is ok (status 200-299)
+      if (!response.ok) {
+        throw new Error(`Failed to fetch replies: ${response.statusText}`);
+      }
+  
+      // Parse the JSON data from the response
+      const data = await response.json();
+  
+      // Return the replies data
+      return data;
+    } catch (error) {
+      console.error("Error fetching replies:", error);
+      throw error; // Re-throw the error for further handling (e.g., in the UI)
+    }
+  },
 };

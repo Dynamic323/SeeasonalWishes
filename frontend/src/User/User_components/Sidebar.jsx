@@ -43,7 +43,6 @@ const navItems = [
     label: "Account Settings",
     path: "/user/dashboard/settings",
   },
-  { icon: Shield, label: "Admin Panel", path: "/user/dashboard/admin" },
 ];
 
 export function Sidebar() {
@@ -51,6 +50,15 @@ export function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => setIsOpen(!isOpen);
+
+  const logout = () => {
+    // Clear token and user ID from localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+
+    // Redirect to login page or another route
+    window.location.href = "/login"; // Adjust as per your routing
+  };
 
   return (
     <>
@@ -68,13 +76,11 @@ export function Sidebar() {
         ></div>
       )}
       <div
-        className={`
-        fixed inset-y-0 left-0 z-10 w-64 bg-skin-dark-primary text-skin-light-text transform transition-transform duration-200 ease-in-out
-        ${isOpen ? "translate-x-0" : "-translate-x-full"}
-        lg:translate-x-0 lg:static lg:inset-auto lg:flex
-      `}
+        className={`fixed inset-y-0 left-0 z-10 w-64 bg-skin-dark-primary text-skin-light-text transform transition-transform duration-200 ease-in-out ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:translate-x-0 lg:static lg:inset-auto lg:flex`}
       >
-        <div className="p-4 h-full overflow-y-auto text-skin-light-tex">
+        <div className="p-4 h-full overflow-y-auto">
           <h1 className="text-2xl font-bold mb-8">SeasonalWishes</h1>
           <nav>
             {navItems.map(({ icon: Icon, label, path }) => (
@@ -94,23 +100,14 @@ export function Sidebar() {
                   <span>{label}</span>
                 </button>
               </Link>
-              // <a
-              //   key={label}
-              //   href={path}
-              //   className={`flex items-center gap-3 px-4 py-3 rounded-lg mb-2 transition-colors ${
-              //     activeItem === label
-              //       ? "bg-skin-dark-hover text-skin-accent"
-              //       : "hover:bg-skin-dark-hover"
-              //   }`}
-              //   onClick={() => {
-              //     setActiveItem(label);
-              //     if (window.innerWidth < 1024) setIsOpen(false);
-              //   }}
-              // >
-              //   <Icon size={20} />
-              //   <span>{label}</span>
-              // </a>
             ))}
+            <button
+              onClick={logout}
+              className="flex items-center gap-3 px-4 py-3 rounded-lg mt-4 bg-red-500 text-white hover:bg-red-600 transition-colors"
+            >
+              <Shield size={20} />
+              <span>Log-out</span>
+            </button>
           </nav>
         </div>
       </div>
