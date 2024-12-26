@@ -2,6 +2,34 @@ const API_BASE_URL = "http://localhost:3000/api";
 // const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const api = {
+  async fetchWithAuth(url, options = {}) {
+    const token = localStorage.getItem("token"); // Retrieve the token from storage
+    if (!token) {
+      throw new Error("No token found, user is not logged in.");
+    }
+
+    const headers = {
+      ...options.headers,
+      Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+    };
+
+    try {
+      const response = await fetch(url, { ...options, headers });
+
+      // If the token is invalid or expired, log out the user
+      if (response.status === 401) {
+        handleLogout(); // Call the logout function
+        throw new Error("Invalid or expired token");
+      }
+
+      // Parse JSON response if successful
+      return await response.json();
+    } catch (error) {
+      console.error("Error with fetchWithAuth:", error);
+      throw error; // Rethrow the error for further handling
+    }
+  },
+
   // Auth functions
   async register({ username, email, password }) {
     try {
@@ -138,29 +166,29 @@ export const api = {
     }
   },
 
-
-
-
-
   sendReply: async (payload) => {
     try {
       const response = await fetch(`${API_BASE_URL}/replies`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
       });
-  
+
       if (!response.ok) {
         const errorMessage = await response.text(); // Get the response body
-        console.error(`Error sending reply: ${response.status} - ${errorMessage}`);
-        throw new Error(`Error sending reply: ${response.status} - ${errorMessage}`);
+        console.error(
+          `Error sending reply: ${response.status} - ${errorMessage}`
+        );
+        throw new Error(
+          `Error sending reply: ${response.status} - ${errorMessage}`
+        );
       }
 
       // Check if the response is JSON
-      const contentType = response.headers.get('Content-Type');
-      if (contentType && contentType.includes('application/json')) {
+      const contentType = response.headers.get("Content-Type");
+      if (contentType && contentType.includes("application/json")) {
         const data = await response.json();
         return data;
       } else {
@@ -171,25 +199,38 @@ export const api = {
       throw error; // You can also re-throw or return an error response to handle in the UI
     }
   },
-  
+
   getRepliesForUser: async ({ userId }) => {
     try {
-      // Use fetch to make the GET request
       const response = await fetch(`/api/replies/${userId}`);
-  
-      // Check if the response is ok (status 200-299)
+      const contentType = response.headers.get("Content-Type");
+
+      console.log("Response headers:", response.headers);
+
       if (!response.ok) {
-        throw new Error(`Failed to fetch replies: ${response.statusText}`);
+        throw new Error(
+          `Failed to fetch replies: ${response.status} ${response.statusText}`
+        );
       }
-  
-      // Parse the JSON data from the response
-      const data = await response.json();
-  
-      // Return the replies data
-      return data;
+
+      if (contentType && contentType.includes("application/json")) {
+        const data = await response.json();
+        console.log("Fetched replies:", data); // Log parsed response
+        return data;
+      } else {
+        throw new Error(`Expected JSON response but received: ${contentType}`);
+      }
     } catch (error) {
       console.error("Error fetching replies:", error);
-      throw error; // Re-throw the error for further handling (e.g., in the UI)
+      throw error;
     }
   },
+};
+
+const handleLogout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+
+  alert("Your session has expired. Please log in again."); // Feedback to the user
+  window.location.href = "/login";
 };

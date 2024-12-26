@@ -15,7 +15,7 @@ const UserGuestbookPage = () => {
     const fetchReplies = async () => {
       try {
         setLoading(true);
-        const response = await api.getRepliesForUser({ userid: userId });
+        const response = await api.getRepliesForUser({ userId: userId });
         setMessages(response.data); // Adjust based on your API's response structure
       } catch (err) {
         setError("Failed to load messages. Please try again.");
