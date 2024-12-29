@@ -10,14 +10,14 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 
-// const corsOptions = {
-//   origin: "*",
-//   methods: ["GET", "POST", "PUT", "DELETE"],
-//   allowedHeaders: ["Content-Type", "Authorization"], // Added "Authorization" to ensure it matches the client-side headers
-//   credentials: true, // Allow credentials (cookies, sessions, etc.)
-// };
+const corsOptions = {
+  origin: "*", // Allow access from all origins
+  methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
+  allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
+  credentials: true, // Allow cookies and credentials (if needed)
+};
 
-app.use(cors());
+app.use(cors(corsOptions)); // Apply CORS with the defined options
 
 // Routes
 
