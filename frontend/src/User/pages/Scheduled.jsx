@@ -8,7 +8,8 @@ export default function Scheduled() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [loading, setLoading] = useState(false);
-  const AppUrl = import.meta.env.VITE_APP_URL;
+  // const AppUrl = import.meta.env.VITE_APP_URL;
+  const AppUrl = VITE_APP_URL;
 
   const token = localStorage.getItem("token"); // Get token from local storage (or context)
   const userId = localStorage.getItem("userId"); // Get token from local storage (or context)
