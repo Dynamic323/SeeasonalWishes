@@ -54,6 +54,13 @@ function Use_template() {
         { value: "anniversary", label: "Anniversary" },
         { value: "graduation", label: "Graduation" },
         { value: "wedding", label: "Wedding" },
+        { value: "christmas", label: "Christmas" },
+        { value: "new year", label: "New Year" },
+        { value: "mother's day", label: "Mother's Day" },
+        { value: "father's day", label: "Father's Day" },
+        { value: "congratulations", label: "Congratulations" },
+        { value: "valentine's day", label: "Valentine's Day" },
+        { value: "easter", label: "Easter" },
         { value: "other", label: "Other" },
       ],
     },
@@ -101,7 +108,7 @@ function Use_template() {
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">Use Template</h2>
-      <div
+      {/* <div
         className={` ${selectedBg} p-6 rounded-lg`}
         style={{ backgroundColor: selectedBg }}
       >
@@ -112,7 +119,7 @@ function Use_template() {
         />
         <h3 className="text-2xl font-bold text-center">{title}</h3>
         <p className="text-center">{message}</p>
-      </div>
+      </div> */}
 
       {error && (
         <div className="fixed bottom-4 right-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded shadow-lg">
@@ -126,8 +133,14 @@ function Use_template() {
         </div>
       )}
       {success && (
-        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+        <div className="fixed bottom-4 right-4 bg-green-100 border border-green-400 text-green-700 p-4 rounded shadow-lg">
           {success}
+          <button
+            onClick={() => setSuccess(null)}
+            className="ml-4 border-green-500 hover:text-green-700"
+          >
+            <X className="h-5 w-5" />
+          </button>
         </div>
       )}
 

@@ -202,10 +202,8 @@ export const api = {
 
   getRepliesForUser: async ({ userId }) => {
     try {
-      const response = await fetch(`/api/replies/${userId}`);
+      const response = await fetch(`${API_BASE_URL}/replies/${userId}`);
       const contentType = response.headers.get("Content-Type");
-
-      console.log("Response headers:", response.headers);
 
       if (!response.ok) {
         throw new Error(
@@ -215,13 +213,38 @@ export const api = {
 
       if (contentType && contentType.includes("application/json")) {
         const data = await response.json();
-        console.log("Fetched replies:", data); // Log parsed response
         return data;
       } else {
         throw new Error(`Expected JSON response but received: ${contentType}`);
       }
     } catch (error) {
       console.error("Error fetching replies:", error);
+      throw error;
+    }
+  },
+
+  deleteReply: async (greetingId, replyId) => {
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/replies/greetings/${greetingId}/replies/${replyId}
+        
+        `,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to delete reply: ${response.status} ${response.statusText}`
+        );
+      }
+
+      const data = await response.json();
+      // console.log("Reply deleted successfully:", data);
+      return data;
+    } catch (error) {
+      console.error("Error in deleting reply:", error);
       throw error;
     }
   },

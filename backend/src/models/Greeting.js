@@ -6,7 +6,6 @@ const generateSlug = () => {
   return Math.random().toString(36).substring(2, 15); // Generates a unique slug
 };
 
-
 const greetingSchema = new Schema(
   {
     userId: {
@@ -20,11 +19,21 @@ const greetingSchema = new Schema(
       type: String,
       enum: [
         "birthday",
-        "anniversary",
-        "Holiday",
-        "graduation",
         "wedding",
-        "other",
+        "graduation",
+        "anniversary",
+        "christmas",
+        "new year",
+        "mother's day",
+        "father's day",
+        "get well",
+        "congratulations",
+        "thank you",
+        "valentine's day",
+        "easter",
+        "retirement",
+        "new home",
+        "sympathy",
       ],
       required: true,
     },
@@ -55,11 +64,4 @@ const Greeting = mongoose.model("Greeting", greetingSchema);
 
 module.exports = Greeting;
 
-
-
-
-
-
 // ///////////////////////////
-
-

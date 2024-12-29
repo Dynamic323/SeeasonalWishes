@@ -1,17 +1,38 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import { WishesData } from "../../Guest/pages/ExploreTemplates"; // Import for template data (if needed)
 import { CreateGreeting } from "../User_components/CreateGreeting";
-import { api } from "../../services/api"; // Make sure api.createGreeting exists in this file
+import { api } from "../../services/api"; // Import your API functions
 import { X } from "lucide-react";
+import {
+  SuccessNotification,
+  ErrorNotification,
+} from "../../NotificationSystem"; // Import for notifications
 
-function Create() {
-  const [recipientName, setRecipientName] = useState("");
-  const [messageContent, setMessageContent] = useState("");
-  const [eventDate, setEventDate] = useState("");
-  const [category, setCategory] = useState("");
+// Combine functionalities from both files
+function Create({ isEditing = false, initialData = {} }) {
+  const { id } = useParams(); // Use params for editing (if needed)
+
+  // Handle data fetching or pre-populating form based on editing mode
+  const [recipientName, setRecipientName] = useState(
+    isEditing ? initialData.recipientName || "" : ""
+  );
+  const [messageContent, setMessageContent] = useState(
+    isEditing ? initialData.messageContent || "" : ""
+  );
+  const [eventDate, setEventDate] = useState(
+    isEditing ? initialData.eventDate || "" : ""
+  );
+  const [category, setCategory] = useState(
+    isEditing ? initialData.category || "" : ""
+  );
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
+  const [notification, setNotification] = useState({
+    success: { show: false, message: "" },
+    error: { show: false, message: "" },
+  });
 
+  // Define the fields array here
   const fields = [
     { name: "recipientName", type: "text", placeholder: "Recipient's Name" },
     {
@@ -29,37 +50,47 @@ function Create() {
         { value: "anniversary", label: "Anniversary" },
         { value: "graduation", label: "Graduation" },
         { value: "wedding", label: "Wedding" },
+        { value: "christmas", label: "Christmas" },
+        { value: "new year", label: "New Year" },
+        { value: "mother's day", label: "Mother's Day" },
+        { value: "father's day", label: "Father's Day" },
+        { value: "congratulations", label: "Congratulations" },
+        { value: "valentine's day", label: "Valentine's Day" },
+        { value: "easter", label: "Easter" },
         { value: "other", label: "Other" },
       ],
     },
   ];
 
-  // Handle form submission
   const handleFormSubmit = async (formData) => {
     setLoading(true);
-    setError(null);
-    setSuccess(null);
+    // Reset notifications
+    setNotification({
+      success: { show: false, message: "" },
+      error: { show: false, message: "" },
+    });
 
-    const token = localStorage.getItem("token"); // Get token from local storage (or context)
-    const userId = localStorage.getItem("userId"); // Get userId from local storage (or context)
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
 
     try {
-      // Call the API to create a greeting
       const response = await api.createGreeting(
         {
-          // recipientName, messageContent, category, background, eventDate, userId
           recipientName: formData.recipientName,
           messageContent: formData.messageContent,
           category: formData.category,
           eventDate: formData.eventDate,
-          background: formData.background,
+          background: formData.background, // Assuming background field exists
           userId,
         },
         token
       );
 
-      setSuccess("Greeting created successfully!");
-      console.log("API Response:", response);
+      // Show success notification
+      setNotification({
+        success: { show: true, message: "Greeting created successfully!" },
+        error: { show: false, message: "" },
+      });
 
       // Reset form fields (optional)
       setRecipientName("");
@@ -67,46 +98,57 @@ function Create() {
       setCategory("");
       setEventDate("");
     } catch (err) {
-      // Check if the error is from the response or a network issue
-      if (err.response && err.response.data && err.response.data.message) {
-        setError(err.response.data.message); // Use the error message from the API
-      } else {
-        setError(err.message || "Failed to create greeting");
+      // Format validation error message
+      let errorMessage = "Failed to create greeting";
+
+      if (err.message && err.message.includes("Greeting validation failed")) {
+        errorMessage = "Please fill in all required fields: ";
+        const validationErrors = err.message.split(":")[1].split(",");
+        errorMessage += validationErrors
+          .map((error) =>
+            error.split(":")[0].trim().replace("Path `", "").replace("`", "")
+          )
+          .join(", ");
+      } else if (err.response?.data?.message) {
+        errorMessage = err.response.data.message;
       }
+
+      // Show error notification
+      setNotification({
+        success: { show: false, message: "" },
+        error: { show: true, message: errorMessage },
+      });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div>
-      {/* Error and Success messages */}
-      {error && (
-        <div className="fixed bottom-4 right-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded shadow-lg">
-          {error}
-          <button
-            onClick={() => setError(null)}
-            className="ml-4 text-red-700 hover:text-red-900"
-          >
-            <X className="h-5 w-5" />
-          </button>
-        </div>
-      )}
+    <>
+      <SuccessNotification
+        isVisible={notification.success.show}
+        onClose={() =>
+          setNotification((prev) => ({
+            ...prev,
+            success: { show: false, message: "" },
+          }))
+        }
+        message={notification.success.message}
+      />
 
-      {success && (
-        <div className="fixed bottom-4 right-4 bg-green-100 border border-green-400 text-green-700 p-4 rounded shadow-lg">
-          {success}
-          <button
-            onClick={() => setSuccess(null)}
-            className="ml-4 border-green-500 hover:text-green-700"
-          >
-            <X className="h-5 w-5" />
-          </button>
-        </div>
-      )}
+      <ErrorNotification
+        isVisible={notification.error.show}
+        onClose={() =>
+          setNotification((prev) => ({
+            ...prev,
+            error: { show: false, message: "" },
+          }))
+        }
+        message={notification.error.message}
+      />
 
       <CreateGreeting
-        fields={fields}
+        fields={fields} // Assuming fields definition is available
         onSubmit={handleFormSubmit}
         initialValues={{
           recipientName,
@@ -116,7 +158,7 @@ function Create() {
         }}
         buttonText={loading ? "Creating..." : "Create Greeting"}
       />
-    </div>
+    </>
   );
 }
 

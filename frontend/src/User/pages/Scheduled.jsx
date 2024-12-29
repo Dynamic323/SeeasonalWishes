@@ -44,6 +44,11 @@ export default function Scheduled() {
     fetchGreetings();
   }, []);
 
+
+  console.log('====================================');
+  console.log(greetings);
+  console.log('====================================');
+
   // Filter greetings based on search term and status
   const filteredGreetings = greetings.filter(
     (greeting) =>

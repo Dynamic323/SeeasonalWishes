@@ -9,10 +9,13 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Decode the JWT token
   const decodeToken = async (token) => {
     try {
+      if (!token || token.split('.').length !== 3) {
+        throw new Error("Invalid JWT format");
+      }
       const decoded = jose.decodeJwt(token); // Decodes JWT without verification
-      // console.log("Decoded Token:", decoded); // Debugging
       return decoded;
     } catch (err) {
       console.error("Error decoding token:", err.message);
@@ -20,19 +23,34 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Check if token has expired
+  const isTokenExpired = (decodedToken) => {
+    if (decodedToken && decodedToken.exp) {
+      const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+      return decodedToken.exp < currentTime;
+    }
+    return false;
+  };
+
   const restoreUser = async () => {
     const token = localStorage.getItem("token");
-    // console.log("Restoring user session, token:", token); // Debugging
     if (token) {
       const decoded = await decodeToken(token);
       if (decoded) {
-        const userData = {
-          email: decoded.email,
-          isAdmin: decoded.isAdmin || false,
-          id: decoded.id,
-        };
-        // console.log("Restored User Data:", userData); // Debugging
-        setUser(userData);
+        // If token is expired, log out the user
+        if (isTokenExpired(decoded)) {
+          logout();
+        } else {
+          const userData = {
+            email: decoded.email,
+            isAdmin: decoded.isAdmin || false,
+            id: decoded.id,
+          };
+          setUser(userData);
+        }
+      } else {
+        console.log("Invalid token, logging out...");
+        logout(); // Log out the user if the token is invalid
       }
     }
     setLoading(false);
