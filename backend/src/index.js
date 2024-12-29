@@ -7,18 +7,17 @@ const replyRoutes = require("./routes/replyRoutes");
 const greetingRoutes = require("./routes/greetingRoutes");
 require("dotenv").config();
 
-
 const app = express();
 app.use(express.json());
 
-const corsOptions = {
-  origin: ["https://seeasonal-wishes-fnd.vercel.app", "http://localhost:5174"],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"], // Added "Authorization" to ensure it matches the client-side headers
-  credentials: true, // Allow credentials (cookies, sessions, etc.)
-};
+// const corsOptions = {
+//   origin: ["https://seeasonal-wishes-fnd.vercel.app", "http://localhost:5174"],
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+//   allowedHeaders: ["Content-Type", "Authorization"], // Added "Authorization" to ensure it matches the client-side headers
+//   credentials: true, // Allow credentials (cookies, sessions, etc.)
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 // Routes
 
@@ -26,6 +25,10 @@ app.use("/api/replies", replyRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/greetings", greetingRoutes);
+app.get("/api", (req, res) => {
+  res.send("Backen is Active...");
+});
+
 
 // Health Check Route
 app.get("/", (req, res) => {
