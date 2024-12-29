@@ -30,9 +30,9 @@ export default function Scheduled() {
   };
 
   // Delete greeting
-  const handleDelete = async (slug) => {
+  const handleDelete = async (greetingId) => {
     try {
-      await api.deleteGreeting(slug, token);
+      await api.deleteGreeting(greetingId, token); // Pass the greetingId for deletion
       fetchGreetings(); // Refetch greetings after deletion
     } catch (error) {
       console.error("Error deleting greeting:", error.message);
@@ -43,11 +43,6 @@ export default function Scheduled() {
   useEffect(() => {
     fetchGreetings();
   }, []);
-
-
-  console.log('====================================');
-  console.log(greetings);
-  console.log('====================================');
 
   // Filter greetings based on search term and status
   const filteredGreetings = greetings.filter(
@@ -119,7 +114,7 @@ export default function Scheduled() {
                   Message
                 </th>
                 <th className="px-4 py-2 text-left text-sm font-semibold text-gray-600">
-                  Link
+                  External Link
                 </th>
                 <th className="px-4 py-2 text-left text-sm font-semibold text-gray-600">
                   Status
@@ -169,7 +164,14 @@ export default function Scheduled() {
                     </span>
                   </td>
                   <td className="px-4 py-2 text-sm text-gray-600">
-                    {greeting.eventDate}
+                    {new Date(greeting.eventDate).toLocaleString("en-US", {
+                      month: "short",
+                      year: "numeric",
+                      weekday: "short",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
                   </td>
                   <td className="px-4 py-2">
                     <div className="flex space-x-2">
@@ -181,7 +183,7 @@ export default function Scheduled() {
                       </button>
                       {/* Delete Button */}
                       <button
-                        onClick={() => handleDelete(greeting.slug)}
+                        onClick={() => handleDelete(greeting._id)}
                         className="p-2 bg-red-100 border rounded-lg shadow hover:bg-red-200"
                       >
                         <Trash2 className="h-4 w-4 text-red-600" />

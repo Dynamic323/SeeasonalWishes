@@ -64,4 +64,3 @@ const Greeting = mongoose.model("Greeting", greetingSchema);
 
 module.exports = Greeting;
 
-// ///////////////////////////

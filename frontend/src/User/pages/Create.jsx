@@ -1,38 +1,22 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import { WishesData } from "../../Guest/pages/ExploreTemplates"; // Import for template data (if needed)
 import { CreateGreeting } from "../User_components/CreateGreeting";
-import { api } from "../../services/api"; // Import your API functions
-import { X } from "lucide-react";
+import { api } from "../../services/api";
 import {
   SuccessNotification,
   ErrorNotification,
-} from "../../NotificationSystem"; // Import for notifications
+} from "../../NotificationSystem";
 
-// Combine functionalities from both files
-function Create({ isEditing = false, initialData = {} }) {
-  const { id } = useParams(); // Use params for editing (if needed)
-
-  // Handle data fetching or pre-populating form based on editing mode
-  const [recipientName, setRecipientName] = useState(
-    isEditing ? initialData.recipientName || "" : ""
-  );
-  const [messageContent, setMessageContent] = useState(
-    isEditing ? initialData.messageContent || "" : ""
-  );
-  const [eventDate, setEventDate] = useState(
-    isEditing ? initialData.eventDate || "" : ""
-  );
-  const [category, setCategory] = useState(
-    isEditing ? initialData.category || "" : ""
-  );
+function Create() {
+  const [recipientName, setRecipientName] = useState("");
+  const [messageContent, setMessageContent] = useState("");
+  const [eventDate, setEventDate] = useState("");
+  const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(false);
   const [notification, setNotification] = useState({
     success: { show: false, message: "" },
     error: { show: false, message: "" },
   });
 
-  // Define the fields array here
   const fields = [
     { name: "recipientName", type: "text", placeholder: "Recipient's Name" },
     {
@@ -62,6 +46,7 @@ function Create({ isEditing = false, initialData = {} }) {
     },
   ];
 
+  // Handle form submission
   const handleFormSubmit = async (formData) => {
     setLoading(true);
     // Reset notifications
@@ -80,7 +65,7 @@ function Create({ isEditing = false, initialData = {} }) {
           messageContent: formData.messageContent,
           category: formData.category,
           eventDate: formData.eventDate,
-          background: formData.background, // Assuming background field exists
+          background: formData.background,
           userId,
         },
         token
@@ -92,7 +77,7 @@ function Create({ isEditing = false, initialData = {} }) {
         error: { show: false, message: "" },
       });
 
-      // Reset form fields (optional)
+      // Reset form fields
       setRecipientName("");
       setMessageContent("");
       setCategory("");
@@ -148,7 +133,7 @@ function Create({ isEditing = false, initialData = {} }) {
       />
 
       <CreateGreeting
-        fields={fields} // Assuming fields definition is available
+        fields={fields}
         onSubmit={handleFormSubmit}
         initialValues={{
           recipientName,

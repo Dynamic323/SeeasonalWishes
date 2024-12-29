@@ -248,6 +248,33 @@ export const api = {
       throw error;
     }
   },
+  deleteGreeting: async (greetingId, token) => {
+    try {
+      console.log(`${API_BASE_URL}/replies/${greetingId}/del`);
+
+      const response = await fetch(
+        `${API_BASE_URL}/replies/${greetingId}/del`, // Updated API URL to reflect the greeting deletion
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to delete greeting: ${response.status} ${response.statusText}`
+        );
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error in deleting greeting:", error);
+      throw error;
+    }
+  },
 };
 
 const handleLogout = () => {
