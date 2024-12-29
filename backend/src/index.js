@@ -29,7 +29,6 @@ app.get("/api", (req, res) => {
   res.send("Backen is Active...");
 });
 
-
 // Health Check Route
 app.get("/", (req, res) => {
   res.send("Backend is running!");
