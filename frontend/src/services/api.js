@@ -1,5 +1,5 @@
-const API_BASE_URL = "http://localhost:3000/api";
-// const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
+// const API_BASE_URL = "http://localhost:3000/api";
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const api = {
   async fetchWithAuth(url, options = {}) {
