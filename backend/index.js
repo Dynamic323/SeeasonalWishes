@@ -27,6 +27,8 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/greetings", greetingRoutes);
 
 app.get("/api", (req, res) => {
+  console.log("mongodb" + process.env.MONGO_URI);
+  console.log("JWT" + process.env.JWT_SECRET);
   res.send("Backen is Active...");
 });
 
