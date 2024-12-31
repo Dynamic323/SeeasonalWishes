@@ -37,6 +37,16 @@ app.get("/", (req, res) => {
   res.send("Backend is running!");
 });
 
+app.get("/ip", async (req, res) => {
+  try {
+    const response = await fetch("https://api.ipify.org?format=json");
+    const data = await response.json();
+    res.send(`Your Render IP Address: ${data.ip}`);
+  } catch (error) {
+    res.status(500).send("Error fetching IP address");
+  }
+});
+
 // MongoDB Connection
 mongoose
   .connect(process.env.MONGO_URI)
