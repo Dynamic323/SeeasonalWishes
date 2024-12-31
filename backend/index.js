@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: ["https://seeasonal-wishes-fnd.vercel.app", "http://localhost:5174"],
+  origin: ["https://seeasonal-wishes-fnd.vercel.app", "http://localhost:5173"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"], // Added "Authorization" to ensure it matches the client-side headers
   credentials: true, // Allow credentials (cookies, sessions, etc.)
