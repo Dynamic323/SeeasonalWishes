@@ -80,7 +80,7 @@ export const api = {
   // Greeting-related functions
   createGreeting: async (formData, token) => {
     try {
-      const response = await fetch("http://localhost:3000/api/greetings", {
+      const response = await fetch(`${API_BASE_URL}/greetings`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
